@@ -1,0 +1,219 @@
+/* animations.css */
+@keyframes slide-in-up {
+  0% {
+    transform: translateY(100%); /* Start from below the viewport */
+    opacity: 0; /* Fully transparent */
+  }
+  100% {
+    transform: translateY(0); /* End at the original position */
+    opacity: 1; /* Fully opaque */
+  }
+}
+
+@keyframes slide-out-down {
+  0% {
+    transform: translateY(0); /* Start from the original position */
+    opacity: 1; /* Fully opaque */
+  }
+  100% {
+    transform: translateY(100%); /* Move down out of the viewport */
+    opacity: 0; /* Fully transparent */
+  }
+}
+
+/* Slide-in styles */
+.socials{
+    background-color: #F0F5F7;
+}
+/* Media query to disable hover effects on mobile devices */
+/* Desktop hover effect */
+.desktop-hover {
+  transition: transform 0.5s, box-shadow 0.5s;
+}
+
+.desktop-hover:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Mobile: Disable hover effect */
+@media (max-width: 768px) {
+  .desktop-hover {
+    transform: none !important;
+    box-shadow: none !important;
+  }
+
+  .overlay {
+    /* Mobile-specific styles if needed */
+    transition: opacity 0.3s ease-in-out;
+  }
+}
+
+/* animations.css */
+@keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes slideIn {
+    0% {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+.fade-in{
+    animation: slideIn 1s forwards;
+}
+  
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+.fade-in-right {
+  animation: slideInFromRight 1s forwards;
+}
+  .fade-up {
+    animation: fadeInUp 1s ease-in-out;
+  }
+  
+.fade-enter {
+  animation: slide-out-down 500ms ease-in-out forwards; /* Slide out down */
+}
+
+/* Initial large text size */
+h1 {
+    font-family: 'Playfair Display', serif; /* Use a luxurious font */
+    transition: all 1s ease;
+  }
+  
+  /* When the text is animated, it shrinks and moves up */
+  .transform-up {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 3em;
+  }
+  
+  .text-small {
+    font-size: 2rem; /* Shrink the text to fit the header */
+  }
+  
+  /* Hide the main content initially */
+  .main-content.invisible {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+  }
+  
+  /* Show the main content after the animation */
+  .main-content.visible {
+    opacity: 1;
+    pointer-events: all;
+  }
+/* Smooth transform with ease */
+/* Add this to your CSS file */
+
+  
+  @keyframes transformDown {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  
+  .transform-up {
+    animation: transformUp 1s forwards;
+  }
+  
+  .transform-down {
+    animation: transformDown 1s forwards;
+  }
+  
+  /* Additional styling for the header */
+  .text-small {
+    font-size: 2rem; /* Adjust as needed */
+  }
+  * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  overflow-x: hidden; /* Disable horizontal scrolling */
+  width: 100%;
+}
+
+.box-sizin {
+  width: 100vw; /* Ensure it spans the entire width of the viewport */
+}
+
+@keyframes fadeInDown {
+  0% {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.header-enter {
+  animation: fadeInDown 0.5s forwards;
+}
+
+  
+  
+  /* Fade-in for products section */
+  .fade-enter {
+    opacity: 0;
+  }
+  .fade-enter-active {
+    animation: fadeIn 1s ease-in forwards;
+  }
+  @media (max-width: 765px) {
+    .fade-enter-active{
+        margin-top: 30em;
+    }
+}
+@keyframes fade-in {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  .fade-enter-active {
+    animation: fade-in 1s ease-in-out forwards;
+  }
+  

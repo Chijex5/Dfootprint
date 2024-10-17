@@ -1,0 +1,86 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Root CSS Variables */
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+@media (max-width: 765px) {
+  .hero-text {
+    font-size: 2rem; /* Adjust header text size */
+  }
+  .transform-up {
+    height: 60px; /* Reduce header height */
+  }
+  .text-small {
+    font-size: 1.5rem; /* Shrink text even further for smaller screens */
+  }
+}
+
+.aos-animate {
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+
+/* Custom Fonts */
+@font-face {
+  font-family: 'Oswald';
+  src: url('/fonts/Oswald-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal; /* Specify the weight */
+  font-style: normal;  /* Specify the style */
+}
+
+@font-face {
+  font-family: 'Bebas Neue';
+  src: url('/fonts/BebasNeue-Regular.ttf') format('truetype');
+  font-weight: normal; /* Specify the weight */
+  font-style: normal;  /* Specify the style */
+}
+
+@font-face {
+  font-family: 'Edu AUVIC WANTS Dots';
+  src: url('/fonts/EduAUVICWANTDots-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal; /* Specify the weight */
+  font-style: normal;  /* Specify the style */
+}
+
+@font-face {
+  font-family: 'Inconsolata';
+  src: url('/fonts/Inconsolata-VariableFont_wdth,wght.ttf') format('truetype');
+  font-weight: normal; /* Specify the weight */
+  font-style: normal;  /* Specify the style */
+}
+
+@font-face {
+  font-family: 'Playfair Display';
+  src: url('/fonts/PlayfairDisplay-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: normal; /* Specify the weight */
+  font-style: italic;  /* Specify the style */
+}
+html {
+  scroll-behavior: smooth;
+}
+
+/* Global Styles */
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: 'Oswald', sans-serif; /* Use your custom font as the default */
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance; /* Custom utility class for text wrapping */
+  }
+}
