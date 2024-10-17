@@ -143,7 +143,7 @@ const ContactUs = () => {
             {/* Optional Decorative Element */}
             <div className="mt-6 border-t border-gray-300 pt-4">
             <p className="text-sm text-gray-500">
-                We're here to assist you! Feel free to reach out anytime.
+                We&apos;re here to assist you! Feel free to reach out anytime.
             </p>
             </div>
         </div>

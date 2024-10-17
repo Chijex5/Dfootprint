@@ -1,5 +1,5 @@
 'use client';
-const baseUrl = window.location.hostname === 'localhost' ? 'http://127.0.0.1:5000' : 'http://192.168.1.189:5000';
+const baseUrl = "https://chijex5-backend2-1.onrender.com"
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 
