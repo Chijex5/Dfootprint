@@ -343,12 +343,39 @@ const ProductManagementPage = () => {
                     <option value="female">Female Section</option>
                     </select>
                     <input
-                        type="file"
-                        id="file-input"
-                        accept="image/*"
-                        style={{ display: 'none' }}
-                        onChange={handleFileChange}
-                    />
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              setImageUrl(e.target.files[0]); // Set imageUrl as File object
+            }}
+            className="w-full p-4 border border-secondary text-primary rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+          />
+
+          {/* Image Preview */}
+          {imageUrl && (
+            <div className="mt-4">
+              <Image
+                src={URL.createObjectURL(imageUrl)}
+                alt="Product Preview"
+                width={640}
+                height={480}
+                className="object-cover rounded"
+              />
+            </div>
+          )}
+
+          {!imageUrl && editingProduct && (
+            <div className="mt-4">
+              <h3>Current Image:</h3>
+              <Image
+                src={editingProduct.image_url}
+                alt="Current Product"
+                width={640}
+                height={480}
+                className="object-cover rounded"
+              />
+            </div>
+          )}
                   <button type="submit" className="bg-primary text-white py-2 px-4 rounded-lg" disabled={isActionLoading}>
                     {isActionLoading ? 'Loading...' : editingProduct ? 'Update Product' : 'Add Product'}
                   </button>
@@ -516,12 +543,39 @@ const ProductManagementPage = () => {
                 <option value="female">Female Section</option>
                 </select>
                 <input
-                    type="file"
-                    id="file-input"
-                    accept="image/*"
-                    style={{ display: 'none' }}
-                    onChange={handleFileChange}
-                />
+            type="file"
+            accept="image/*"
+            onChange={(e) => {
+              setImageUrl(e.target.files[0]); // Set imageUrl as File object
+            }}
+            className="w-full p-4 border border-secondary text-primary rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-primary transition-all duration-200"
+          />
+
+          {/* Image Preview */}
+          {imageUrl && (
+            <div className="mt-4">
+              <Image
+                src={URL.createObjectURL(imageUrl)}
+                alt="Product Preview"
+                width={640}
+                height={480}
+                className="object-cover rounded"
+              />
+            </div>
+          )}
+
+          {!imageUrl && editingProduct && (
+            <div className="mt-4">
+              <h3>Current Image:</h3>
+              <Image
+                src={editingProduct.image_url}
+                alt="Current Product"
+                width={640}
+                height={480}
+                className="object-cover rounded"
+              />
+            </div>
+          )}
                 <button type="submit" className="bg-primary text-white py-2 px-4 rounded-lg w-full">
                 {editingProduct ? 'Update Product' : 'Add Product'}
                 </button>
