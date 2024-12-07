@@ -148,7 +148,7 @@ const ProductManagementPage = () => {
       // Assuming `product.image` contains the file object
       formData.append('image', imageUrl);
   
-      const response = await fetch(`${baseUrl}/api/products`, {
+      const response = await fetch(`${baseUrl}/api/products/new`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
