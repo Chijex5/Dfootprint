@@ -1,6 +1,7 @@
 import "./globals.css";
 import "./animations.css";
 import { Analytics } from "@vercel/analytics/react"
+import { CartProvider } from "./components/CartContent";
 
 export const metadata = {
   title: "D'FOOTPRINT",
@@ -11,8 +12,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased">
-        {children}
-        <Analytics />
+        <CartProvider>
+          {children}
+          <Analytics />
+        </CartProvider>
       </body>
     </html>
   );

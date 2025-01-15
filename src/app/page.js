@@ -6,6 +6,7 @@ import Image from "next/image"; // Lazy-load images for performance
 import AOS from "aos"; // Import AOS
 import "aos/dist/aos.css"; 
 import SocialProofMetrics from "./components/SocialProof";
+import MessageModal from "./components/MessageComponent";
 import CookiePopup from './components/CookiePopup';
 import Gallery from "./components/Gallery";
 import { FaInstagram, FaTwitter, FaTiktok, FaWhatsapp, FaSnapchat, FaArrowUp } from 'react-icons/fa'; // Icons for footer
@@ -382,9 +383,11 @@ useEffect(() => {
         </div>
 
         {showSubscribeMessage && (
-          <div className="fixed top-14 p-4 bg-secondary text-white rounded-lg shadow-lg animate-fade-in subscribe">
-            {message}
-          </div>
+          <MessageModal
+          messageType="info"
+            messageText={message}
+            onClose={() => setSubscribeShowMessage(false)}
+          />
         )}
       </section>
 
@@ -430,7 +433,18 @@ useEffect(() => {
           {/* Newsletter Section */}
           <div className="mb-12" data-aos="fade-right" data-aos-delay="400">
             <h3 className="text-2xl font-bold mb-4">Stay Connected</h3>
-            <form className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0">
+            <form 
+            className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setMessage(`Subscribed Successfully with ${email} as email`);
+              setSubscribeShowMessage(true);
+              setEmail("");
+              setTimeout(() => {
+                setSubscribeShowMessage(false); // Hide message after 3 seconds
+              }, 3000);
+            }}
+            >
               <input
                 type="email"
                 placeholder="Enter your email"
@@ -445,8 +459,8 @@ useEffect(() => {
           {/* Footer Links */}
           <div className="flex flex-wrap justify-center items-center space-x-6 mb-8" data-aos="fade-left" data-aos-delay="500">
             <a href="/faq" className="hover:text-primary transition-all">FAQ</a>
-            <a href="#" className="hover:text-primary transition-all">Terms of Service</a>
-            <a href="/contactus" className="hover:text-primary transition-all">Contact Us</a>
+            <a href="/termsandcondition" className="hover:text-primary transition-all">Terms of Service</a>
+            <a href="https://d-footprint.onrender.com" className="hover:text-primary transition-all">Contact Us</a>
           </div>
 
           {/* Copyright */}
