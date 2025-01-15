@@ -8,6 +8,10 @@
   --foreground: #171717;
 }
 
+html::-webkit-scrollbar{
+  display: none; /* Hide scrollbar */
+}
+
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   :root {

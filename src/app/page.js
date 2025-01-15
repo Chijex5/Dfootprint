@@ -5,8 +5,10 @@ import Head from "next/head"; // For SEO and custom fonts
 import Image from "next/image"; // Lazy-load images for performance
 import AOS from "aos"; // Import AOS
 import "aos/dist/aos.css"; 
+import SocialProofMetrics from "./components/SocialProof";
 import CookiePopup from './components/CookiePopup';
-import { FaInstagram, FaTwitter, FaFacebook, FaWhatsapp, FaSnapchat, FaArrowUp } from 'react-icons/fa'; // Icons for footer
+import Gallery from "./components/Gallery";
+import { FaInstagram, FaTwitter, FaTiktok, FaWhatsapp, FaSnapchat, FaArrowUp } from 'react-icons/fa'; // Icons for footer
 
 const images = [
   "/1.jpeg",
@@ -21,35 +23,6 @@ const images = [
   "/10.jpeg",
   "/11.jpeg",
 ];
-
-const createConfetti = () => {
-  const footer = document.getElementById('footer'); // Select the footer element
-
-  if (!footer) return; // Check if the footer exists before proceeding
-
-  const confettiCount = 100;
-  const colors = ['#295255', '#577877', '#F0F5F7', '#ffffff'];
-
-  for (let i = 0; i < confettiCount; i++) {
-    const confetti = document.createElement('div');
-    confetti.classList.add('confetti');
-    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-    confetti.style.left = `${Math.random() * 100}%`; // Confetti spreads across the footer's width
-    confetti.style.top = `-10px`; // Start confetti from above the footer
-    confetti.style.position = 'absolute'; // Set position to absolute within the footer
-    confetti.style.animationDelay = `${Math.random() * 2}s`;
-    footer.appendChild(confetti);
-    console.log("fhfhf")
-
-    // Remove confetti after the animation
-    setTimeout(() => {
-      confetti.remove();
-    }, 3000);
-  }
-};
-
-
-
 
 export default function Home() {
   const [currentImage, setCurrentImage] = useState(0);
@@ -113,9 +86,7 @@ export default function Home() {
     };
   }, [goUpRef]);
 
-  useEffect(() => {
-    createConfetti();
-  }, []); // This ensures it runs on the initial render
+
 
 useEffect(() => {
   AOS.init({
@@ -159,7 +130,7 @@ useEffect(() => {
   }, [showMessage]);
 
   return (
-    <div className="box-sizing">
+    <div className="box-sizing overflow-hidden">
       <Head>
         <meta name="google-site-verification" content="GOI8Rtm1hX9CjSOBeR4BgpVjjp7gF3c4OzPOWRGGdp0" />  
         <meta name="description" content="Luxury sneakers at affordable prices" />
@@ -193,11 +164,11 @@ useEffect(() => {
 
 
       <section
-        className={`relative h-screen flex items-center justify-center bg-cover bg-center transition-all duration-1000`}
+        className={`h-screen relative flex items-center justify-center bg-cover bg-center transition-all duration-1000`}
         style={{ backgroundImage: `url(${images[currentImage]})` }} // Use the current image
         ref={shopNowRef}
       >
-        <div className="absolute inset-0 bg-black opacity-80 transition duration-500 ease-in-out"></div>
+        <div className="absolute inset-0 bg-black opacity-60 transition duration-500 ease-in-out"></div>
         <div className="relative z-10 text-center text-background p-4 md:p-8"> {/* Add padding for mobile */}
           <h1 className="text-4xl md:text-7xl font-bold font-playfair animate-fadeIn"> {/* Adjust font size for mobile */}
             Welcome to D&apos;footprint
@@ -217,10 +188,10 @@ useEffect(() => {
 
       {/* Social Proof Section */}
       <section
-        className="h-screen flex flex-col items-center justify-center bg-background text-secondary"
+        className="flex flex-col items-center justify-center bg-background text-secondary"
         id='welcome'
       >
-        <div className="w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto" data-aos="fade-up">
+        <div className="w-11/12 md:w-3/4 lg:w-2/3 xl:w-1/2 mx-auto my-20" data-aos="fade-up">
           <h2 className="text-3xl md:text-5xl font-playfair font-bold text-center mb-8 tracking-wide">
             What Our Customers Say
           </h2>
@@ -252,8 +223,8 @@ useEffect(() => {
         </div>
       )}
 
-      <section className="h-screen flex flex-col items-center justify-center bg-background text-accent px-4 md:px-8">
-        <div className="w-full max-w-5xl text-center" data-aos="fade-up">
+      <section className="flex flex-col items-center justify-center bg-background text-accent px-4 md:px-8">
+        <div className="w-full max-w-5xl text-center my-20" data-aos="fade-up">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold mb-6">
             Why Choose Us
           </h2>
@@ -353,14 +324,16 @@ useEffect(() => {
           </div>
         </div>
       </section>
+      <SocialProofMetrics/>
 
+      <Gallery/>
 
       {/* Newsletter Signup */}
-      <section className="bg-background py-12 flex flex-col items-center justify-center h-screen" ref={goUpRef}>
+      <section className="bg-background py-12 flex flex-col items-center justify-center" ref={goUpRef}>
         <div data-aos="fade-up">
           <div className="text-center w-full max-w-2xl px-4">
             <h2 
-              className="text-4xl md:text-5xl font-bold font-playfair text-primary mb-6 transform transition-transform duration-700 ease-in-out"
+              className="text-4xl md:text-5xl font-bold font-playfair text-primary my-30 transform transition-transform duration-700 ease-in-out"
               data-aos="fade-up" 
               data-aos-delay="100"
             >
@@ -409,7 +382,7 @@ useEffect(() => {
         </div>
 
         {showSubscribeMessage && (
-          <div className="fixed top-1 p-4 bg-secondary text-white rounded-lg shadow-lg animate-fade-in subscribe">
+          <div className="fixed top-14 p-4 bg-secondary text-white rounded-lg shadow-lg animate-fade-in subscribe">
             {message}
           </div>
         )}
@@ -418,9 +391,9 @@ useEffect(() => {
 
 
       {/* Footer */}
-      <footer className="relative py-12 bg-secondary text-background flex flex-col items-center justify-between h-screen px-4 sm:px-8 overflow-hidden">
+      <footer className="relative py-12 bg-secondary text-background flex flex-col items-center justify-center h-screen px-4 sm:px-8 overflow-hidden">
         {/* Background Decorative Element */}
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-secondary/40 to-primary/20 blur-2xl z-0 opacity-40 animate-move-gradient"></div>
+        <div className="absolute h-80% inset-0 bg-gradient-to-t from-primary/20 via-secondary/40 to-primary/20 blur-2xl z-0 opacity-40 animate-move-gradient"></div>
 
         {/* Content Section */}
         <div 
@@ -432,11 +405,11 @@ useEffect(() => {
           {/* Social Media Icons */}
           <div className="flex justify-center items-center space-x-8 mb-8" data-aos="zoom-in" data-aos-delay="200">
             {[
-              { href: "https://instagram.com", icon: <FaInstagram /> },
-              { href: "https://twitter.com", icon: <FaTwitter /> },
-              { href: "https://facebook.com", icon: <FaFacebook /> },
-              { href: "https://snapchat.com", icon: <FaSnapchat /> },
-              { href: "https://whatsapp.com", icon: <FaWhatsapp /> }
+              { href: "https://www.instagram.com/D__footprint", icon: <FaInstagram /> },
+              { href: "https://twitter.com/ChikaaHey", icon: <FaTwitter /> },
+              { href: "https://www.tiktok.com/@d_footprint?_t=8sB0MmAJIg9&_r=1", icon: <FaTiktok /> },
+              { href: "https://snapchat.com/t/E4Av8LWK", icon: <FaSnapchat /> },
+              { href: "https://wa.me/+2348121993874", icon: <FaWhatsapp /> }
             ].map((social, index) => (
               <a 
                 key={index} 
@@ -479,115 +452,6 @@ useEffect(() => {
           {/* Copyright */}
           <p className="mt-4" data-aos="fade-up" data-aos-delay="600">&copy; 2024 D&apos;footprint. All rights reserved.</p>
         </div>
-
-        {/* Easter Egg Animation */}
-        <div className="absolute bottom-0 left-0 right-0 flex justify-center mb-4 z-0" >
-          <div
-            className="w-12 h-12 bg-primary rounded-full cursor-pointer easter-egg"
-            onClick={() => {
-              setClickCount(clickCount + 1);
-              setShowMessage(true);
-              createConfetti();
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#577877";
-              e.currentTarget.style.transform = "scale(1.3) rotate(25deg)";
-              e.currentTarget.style.boxShadow = "0 0 30px rgba(87, 120, 119, 0.6)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "";
-              e.currentTarget.style.transform = "";
-              e.currentTarget.style.boxShadow = "";
-            }}
-          ></div>
-          {showMessage && (
-            <div className="fixed bottom-16 p-4 bg-secondary text-white rounded-lg shadow-lg animate-fade-in">
-              {clickCount === 1 
-                ? "🎉 Wow, you found the Easter egg! Nice one! Don’t let it get too big-headed!" 
-                : clickCount > 1 && clickCount < 5 
-                ? "Alright, Sherlock! We know you’ve found the Easter egg—don’t get too carried away now!" 
-                : "Whoa there! You’ve clicked the Easter egg a million times! Are you trying to summon it or something?!" 
-              }
-            </div>
-          )}
-        </div>
-
-
-
-        {/* Additional styling for enhanced effect */}
-        <style jsx>{`
-          .easter-egg {
-            position: relative;
-            animation: bounce 2s infinite;
-            transition: all 0.5s ease-in-out;
-          }
-
-          .easter-egg::before {
-            content: '';
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.2), transparent);
-            border-radius: 50%;
-            top: -8px;
-            left: -8px;
-            opacity: 0;
-            transition: opacity 0.3s ease-in-out;
-          }
-
-          .confetti {
-            position: absolute;
-            width: 10px;
-            height: 20px;
-            opacity: 0.7;
-            animation: fall 3s ease-out forwards;
-            transform: rotate(45deg);
-             z-index: 9999;
-          }
-
-          @keyframes fall {
-            from {
-              top: -10px;
-            }
-            to {
-              top: 100vh;
-              opacity: 0;
-              transform: rotate(720deg);
-            }
-          }
-
-          .easter-egg:hover::before {
-            opacity: 1;
-            animation: glow 1.5s infinite alternate;
-          }
-
-          @keyframes bounce {
-            0%, 100% {
-              transform: translateY(0);
-            }
-            50% {
-              transform: translateY(-10px);
-            }
-          }
-
-          @keyframes move-gradient {
-            0% {
-              transform: translateX(-10%);
-            }
-            100% {
-              transform: translateX(10%);
-            }
-          }
-
-          @keyframes glow {
-            from {
-              opacity: 0.5;
-            }
-            to {
-              opacity: 0.9;
-            }
-          }
-        `}</style>
       </footer>
       <CookiePopup />
 
