@@ -31,6 +31,7 @@ export default function Home() {
   const [clickCount, setClickCount] = useState(0)
   const [email, setEmail] = useState("")
   const [isMobile, setIsMobile] = useState(false);
+  const [animationClass, setAnimationClass] = useState("");
   const [scrollY, setScrollY] = useState(0);
   const [isHeaderSticky, setIsHeaderSticky] = useState(false); // State for sticky header
   const [isGoUpVisible, setIsGoUpVisible] = useState(false)
@@ -41,11 +42,16 @@ export default function Home() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImage((prev) => (prev + 1) % images.length);
-    }, 5000); // Change image every 5 seconds
+      // Trigger animation
+      setAnimationClass("opacity-0");
+      setTimeout(() => {
+        setCurrentImage((prev) => (prev + 1) % images.length); // Update image
+        setAnimationClass("opacity-100"); // Reset animation
+      }, 500); // Animation duration (matches Tailwind class)
 
+    }, 5000);
     return () => clearInterval(interval); // Cleanup interval on unmount
-  }, []);
+  }, [images.length]);
 
   useEffect(() => {
     // Intersection Observer to detect when 'Shop Now' leaves the viewport
@@ -138,6 +144,7 @@ useEffect(() => {
         <meta name="keywords" content="luxury, sneakers, fashion, footwear, D'footprint" />
         <meta property="og:title" content="D&apos;footprint - Luxury at Your Feet" />
         <meta name="keywords" content="luxury, sneakers, fashion, footwear, D&apos;footprint" />
+        <meta name="description" content="Shop handmade stylish shoes, perfect for Valentine’s Day gifts. Affordable, custom footwear for outings and romantic gift ideas for her." />
         <meta property="og:image" content="/1.jpeg" /> {/* Add an actual image URL */}
         <meta property="og:url" content="https://yourwebsite.com" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -168,7 +175,7 @@ useEffect(() => {
 
 
       <section
-        className={`h-screen relative flex items-center justify-center bg-cover bg-center transition-all duration-1000`}
+        className={`h-screen relative flex items-center justify-center bg-cover bg-center transition-opacity duration-1000 ${animationClass}`}
         style={{ backgroundImage: `url(${images[currentImage]})` }} // Use the current image
         ref={shopNowRef}
       >
