@@ -2,6 +2,7 @@
 import React from "react";
 import { useCart } from "../components/CartContent";
 import Link from "next/link";
+import Image from "next/image";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
@@ -61,7 +62,7 @@ const CartPage = () => {
               <div className="flex items-center space-x-4">
                 {/* Image Placeholder (optional) */}
                 <div className="w-16 h-16 bg-gray-200 rounded-md flex-shrink-0">
-                  <img
+                  <Image
                     src={item.image || "/placeholder.png"}
                     alt={item.name}
                     className="w-full h-full object-cover rounded-md"

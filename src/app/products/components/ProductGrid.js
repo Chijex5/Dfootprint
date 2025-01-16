@@ -1,5 +1,6 @@
 // src/components/ProductGrid.jsx
 import React from "react";
+import Image from "next/image";
 
 const ProductGrid = ({ filters, onQuickView }) => {
   const products = [
@@ -9,8 +10,8 @@ const ProductGrid = ({ filters, onQuickView }) => {
       price: 12000,
       image: "./1.jpeg",
       description: "Elegant leather sandals made by skilled artisans.",
-      category: "Sandals",
-      size: "Medium",
+      category: "Palms",
+      size: "Male",
     },
     {
       id: 2,
@@ -18,8 +19,8 @@ const ProductGrid = ({ filters, onQuickView }) => {
       price: 15000,
       image: "./2.jpeg",
       description: "Sophisticated and comfortable custom mules.",
-      category: "Mules",
-      size: "Large",
+      category: "Sandals",
+      size: "Male",
     },
     {
         id: 3,
@@ -27,8 +28,8 @@ const ProductGrid = ({ filters, onQuickView }) => {
         price: 8000,
         image: "./3.jpeg",
         description: "Elegant leather sandals made by skilled artisans.",
-        category: "Sandals",
-        size: "Medium",
+        category: "Palms",
+        size: "Neutral",
       },
       {
         id: 4,
@@ -37,7 +38,7 @@ const ProductGrid = ({ filters, onQuickView }) => {
         image: "./4.jpeg",
         description: "Elegant leather sandals made by skilled artisans.",
         category: "Sandals",
-        size: "Medium",
+        size: "Neutral",
       },
       {
         id: 5,
@@ -45,8 +46,8 @@ const ProductGrid = ({ filters, onQuickView }) => {
         price: 12500,
         image: "./5.jpeg",
         description: "Elegant leather sandals made by skilled artisans.",
-        category: "Sandals",
-        size: "Medium",
+        category: "Slippers",
+        size: "Female",
       },
       {
         id: 6,
@@ -54,8 +55,8 @@ const ProductGrid = ({ filters, onQuickView }) => {
         price: 19000,
         image: "./6.jpeg",
         description: "Elegant leather sandals made by skilled artisans.",
-        category: "Sandals",
-        size: "Medium",
+        category: "Mulles",
+        size: "Female",
       },
       {
         id: 7,
@@ -63,8 +64,44 @@ const ProductGrid = ({ filters, onQuickView }) => {
         price: 11000,
         image: "./7.jpeg",
         description: "Elegant leather sandals made by skilled artisans.",
-        category: "Sandals",
-        size: "Medium",
+        category: "Slippers",
+        size: "Female",
+      },
+      {
+        id: 8,
+        name: "Handcrafted Leather Sandals",
+        price: 15000,
+        image: "./8.jpeg",
+        description: "Elegant leather sandals made by skilled artisans.",
+        category: "Slippers",
+        size: "Female",
+      },
+      {
+        id: 9,
+        name: "Handcrafted Leather Sandals",
+        price: 13000,
+        image: "./9.jpeg",
+        description: "Elegant leather sandals made by skilled artisans.",
+        category: "Mulles",
+        size: "Female",
+      },
+      {
+        id: 10,
+        name: "Handcrafted Leather Sandals",
+        price: 11500,
+        image: "./10.jpeg",
+        description: "Elegant leather sandals made by skilled artisans.",
+        category: "Mulles",
+        size: "Female",
+      },
+      {
+        id: 11,
+        name: "Handcrafted Leather Sandals",
+        price: 10000,
+        image: "./11.jpeg",
+        description: "Elegant leather sandals made by skilled artisans.",
+        category: "Mulles",
+        size: "Female",
       },
   ];
 
@@ -89,7 +126,7 @@ const ProductGrid = ({ filters, onQuickView }) => {
             className="bg-white rounded-lg shadow-md group hover:shadow-lg transition"
           >
             <div className="relative">
-              <img
+              <Image
                 src={product.image}
                 alt={product.name}
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"

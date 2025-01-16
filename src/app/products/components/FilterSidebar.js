@@ -58,7 +58,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
             <div className="mb-6">
               <h4 className="text-lg font-medium text-secondary mb-2">Category</h4>
               <ul className="space-y-2">
-                {["Mules", "Slippers", "Sandals"].map((category) => (
+                {["Mules", "Slippers", "Sandals", "Palms"].map((category) => (
                   <li key={category}>
                     <label className="flex items-center space-x-2">
                       <input
@@ -83,9 +83,9 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
 
             {/* Sizes */}
             <div className="mb-6">
-              <h4 className="text-lg font-medium text-secondary mb-2">Size</h4>
+              <h4 className="text-lg font-medium text-secondary mb-2">Gender</h4>
               <ul className="space-y-2">
-                {["Small", "Medium", "Large"].map((size) => (
+                {["Male", "Female", "Neutral"].map((size) => (
                   <li key={size}>
                     <label className="flex items-center space-x-2">
                       <input

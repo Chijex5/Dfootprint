@@ -1,5 +1,6 @@
 // src/app/admin/components/ProductList.js
 import { useEffect, useState } from 'react';
+import Image from 'next/image'; 
 
 const ProductList = ({ onDelete }) => {
   const [products, setProducts] = useState([]);
@@ -60,7 +61,7 @@ const ProductList = ({ onDelete }) => {
               <h3 className="text-xl font-semibold text-primary">{product.name}</h3>
               <p className="text-lg text-gray-700">${product.price}</p>
               <p className="text-sm text-gray-500">Section: {product.section}</p>
-              <img src={product.image_url} alt={product.name} className="mt-2 h-32 w-full object-cover rounded" />
+              <Image src={product.image_url} alt={product.name} className="mt-2 h-32 w-full object-cover rounded" />
               <div className="mt-4 flex justify-between">
                 <button
                   className="bg-red-500 text-white py-2 px-4 rounded hover:bg-red-600 transition-colors duration-200"

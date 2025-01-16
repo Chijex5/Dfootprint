@@ -11,7 +11,7 @@ const TermsOfService = () => {
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-4">General Overview</h2>
           <p className="text-gray-700">
-            D'Footprint specializes in creating custom handmade footwear
+            D&apos;Footprint specializes in creating custom handmade footwear
             tailored to your unique specifications. By placing an order or
             engaging with our website, you acknowledge and agree to the
             following:
@@ -49,14 +49,14 @@ const TermsOfService = () => {
               <strong>Delivery Timeframe:</strong> Orders will be processed and
               shipped within the timeframe communicated during purchase. Please
               allow extra time for handmade production. Delivery delays caused
-              by courier services are outside of D'Footprint's control.
+              by courier services are outside of D&apos;Footprint&apos;s control.
             </li>
             <li>
               <strong>Shipping Costs:</strong> Customers are responsible for
               shipping costs unless stated otherwise during promotional offers.
             </li>
             <li>
-              <strong>Lost or Damaged Parcels:</strong> D'Footprint is not
+              <strong>Lost or Damaged Parcels:</strong> D&apos;Footprint is not
               liable for lost or damaged parcels after they have been shipped.
               If you encounter an issue, please contact the courier service
               directly.
@@ -89,7 +89,7 @@ const TermsOfService = () => {
             <li>
               <strong>Prohibited Use:</strong> Customers must not misuse the
               website or its services in ways that violate laws, regulations, or
-              the integrity of D'Footprint.
+              the integrity of D&apos;Footprint.
             </li>
             <li>
               <strong>Communication:</strong> You agree to provide accurate
@@ -119,8 +119,8 @@ const TermsOfService = () => {
         <section>
           <h2 className="text-xl font-semibold mb-4">Intellectual Property</h2>
           <p className="text-gray-700">
-            All content, designs, and materials provided on the D'Footprint
-            website are the exclusive property of D'Footprint. Any unauthorized
+            All content, designs, and materials provided on the D&apos;Footprint
+            website are the exclusive property of D&apos;Footprint. Any unauthorized
             use, reproduction, or distribution of this content is prohibited.
           </p>
         </section>

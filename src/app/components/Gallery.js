@@ -4,6 +4,7 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Image from "next/image";
 
 const footwearImages = [
   { src: "/1.jpeg", title: "Luxury Mules" },
@@ -64,7 +65,7 @@ function ModernGallery() {
               onClick={() => openLightbox(image)}
             >
               {/* Image */}
-              <img
+              <Image
                 src={image.src}
                 alt={image.title}
                 className="w-full h-96 object-cover transform group-hover:scale-105 transition-transform duration-500"
@@ -101,7 +102,7 @@ function ModernGallery() {
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={() => setShowLightbox(false)}
         >
-          <img
+          <Image
             src={currentImage.src}
             alt={currentImage.title}
             className="max-w-full max-h-full rounded-lg"
