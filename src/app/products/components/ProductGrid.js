@@ -2,7 +2,7 @@
 import React from "react";
 import Image from "next/image";
 
-const ProductGrid = ({ filters, onQuickView }) => {
+const ProductGrid = ({ filters, onQuickView, onClearFilters }) => {
   const products = [
     {
       id: 1,
@@ -116,9 +116,11 @@ const ProductGrid = ({ filters, onQuickView }) => {
 
   return (
     <div>
-      <h2 className="text-3xl font-playfair font-bold text-primary text-center mb-8 mt-12">
-        Explore Our Collection
-      </h2>
+        {filteredProducts.length > 0 && (
+            <h2 className="text-3xl font-playfair dark:text-white font-bold text-primary text-center mb-8 mt-[55px]">
+                Explore Our Collection
+            </h2>
+        )}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {filteredProducts.map((product) => (
           <div
@@ -126,20 +128,20 @@ const ProductGrid = ({ filters, onQuickView }) => {
             className="bg-white rounded-lg shadow-md group hover:shadow-lg transition"
           >
             <div className="relative">
-              <Image
+              <img
                 src={product.image}
                 alt={product.name}
                 className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
               />
             </div>
-            <div className="p-4">
-              <h3 className="text-lg font-semibold text-primary truncate">
+            <div className="p-4 dark:bg-darkSecondary">
+              <h3 className="text-lg font-semibold text-primary dark:text-darkPrimary truncate">
                 {product.name}
               </h3>
-              <p className="text-accent text-sm font-medium">₦{product.price}</p>
+              <p className="text-accent dark:text-darkAccent text-sm font-medium">₦{product.price}</p>
               <button
                 onClick={() => onQuickView(product)}
-                className="mt-4 bg-primary text-white py-2 px-4 rounded w-full hover:bg-opacity-90 transition font-oswald"
+                className="mt-4 bg-primary text-white dark:bg-darkPrimary py-2 px-4 rounded w-full hover:bg-opacity-90 transition font-oswald"
               >
                 Quick View
               </button>
@@ -147,7 +149,29 @@ const ProductGrid = ({ filters, onQuickView }) => {
           </div>
         ))}
         {filteredProducts.length === 0 && (
-          <p className="text-center text-gray-600 mt-8">No products found.</p>
+          <div className="flex flex-col items-center w-screen justify-center text-center space-y-6 min-h-screen">
+          {/* Animated GIF */}
+          <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px]">
+            <img
+              src="./14.gif" // Replace with the correct path to your new GIF
+              alt="No Products Found"
+              className="w-full h-full object-contain"
+            />
+          </div>
+    
+          {/* No Products Found Message */}
+          <p className="text-lg sm:text-xl md:text-2xl text-secondary font-oswald">
+            Sorry, no products found!
+          </p>
+    
+          {/* Call-to-Action Button */}
+          <button
+            onClick={onClearFilters}
+            className="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-opacity-90 transition font-oswald"
+          >
+            Browse All Products
+          </button>
+        </div>
         )}
       </div>
     </div>

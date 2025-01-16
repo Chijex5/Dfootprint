@@ -62,9 +62,9 @@ function SocialProofMetrics() {
   return (
     <section
       id="social-proof-metrics"
-      className="relative py-20 bg-background text-center text-gray-900 overflow-hidden"
+      className="relative py-20 bg-background dark:bg-darkBackground text-center text-gray-900 dark:text-darkAccent overflow-hidden"
     >
-      <h2 className="text-3xl sm:text-4xl md:text-5xl font-playfair font-bold text-primary mb-12">
+      <h2 className="text-2xl sm:text-2xl md:text-5xl font-playfair font-bold text-primary dark:text-white mb-12">
         Join Hundreds of Satisfied Customers
       </h2>
 
@@ -74,10 +74,10 @@ function SocialProofMetrics() {
           id="customers-metric"
           className="flex flex-col items-center space-y-3"
         >
-          <div className="text-6xl sm:text-7xl font-extrabold text-primary">
+          <div className="text-6xl sm:text-7xl font-extrabold text-primary dark:text-darkAccent">
             {customers.toLocaleString()} +
           </div>
-          <p className="text-lg font-oswald text-secondary">Happy Customers</p>
+          <p className="text-lg font-oswald text-secondary dark:text-darkPrimary">Happy Customers</p>
         </div>
 
         {/* Orders */}
@@ -85,10 +85,10 @@ function SocialProofMetrics() {
           id="orders-metric"
           className="flex flex-col items-center space-y-3"
         >
-          <div className="text-6xl sm:text-7xl font-extrabold text-primary">
+          <div className="text-6xl sm:text-7xl font-extrabold text-primary dark:text-darkAccent">
             {orders.toLocaleString()} +
           </div>
-          <p className="text-lg font-oswald text-secondary">Orders Delivered</p>
+          <p className="text-lg font-oswald text-secondary dark:text-darkPrimary">Orders Delivered</p>
         </div>
 
         {/* Designs */}
@@ -96,10 +96,10 @@ function SocialProofMetrics() {
           id="designs-metric"
           className="flex flex-col items-center space-y-3"
         >
-          <div className="text-6xl sm:text-7xl font-extrabold text-primary">
+          <div className="text-6xl sm:text-7xl font-extrabold text-primary dark:text-darkAccent">
             {designs.toLocaleString()} +
           </div>
-          <p className="text-lg font-oswald text-secondary">Unique Designs</p>
+          <p className="text-lg font-oswald text-secondary dark:text-darkPrimary">Unique Designs</p>
         </div>
       </div>
     </section>

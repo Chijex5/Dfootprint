@@ -5,13 +5,18 @@ module.exports = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode: "class", // Enable dark mode with the "class" strategy
   theme: {
     extend: {
       colors: {
-        primary: '#295255',   // Your primary color
-        secondary: '#162623', // Your secondary color
-        accent: '#577877',    // Your accent color
-        background: '#F0F5F7', // Your background color
+        primary: '#295255',   // Light mode primary color
+        secondary: '#162623', // Light mode secondary color
+        accent: '#577877',    // Light mode accent color
+        background: '#F0F5F7', // Light mode background color
+        darkPrimary: '#88C0D0', // Dark mode primary color
+        darkSecondary: '#2E3440', // Dark mode secondary color
+        darkAccent: '#5E81AC',   // Dark mode accent color
+        darkBackground: '#1E1E2E', // Dark mode background color
       },
       fontFamily: {
         oswald: ['Oswald', 'sans-serif'],

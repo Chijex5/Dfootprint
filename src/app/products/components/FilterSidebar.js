@@ -10,7 +10,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
     <div>
       {/* Floating Filter Button */}
       <button
-        className="fixed bottom-4 flex right-4 bg-primary text-white font-playfair p-4 rounded-full shadow-lg z-50 hover:bg-opacity-90 transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary focus:ring-opacity-50"
+        className="fixed bottom-4 flex right-4 bg-primary dark:bg-darkSecondary text-white font-playfair p-4 rounded-full shadow-lg z-50 hover:bg-opacity-90 transition transform hover:scale-105 active:scale-95 focus:outline-none focus:ring-4 focus:ring-primary focus:ring-opacity-50"
         onClick={() => setIsOpen(true)}
         >
         <svg
@@ -26,7 +26,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
 
       <Link
         href="/cart"
-        className="fixed flex font-playfair bottom-6 left-6 w-150 bg-primary text-white py-3 px-4 rounded-full shadow-xl z-50 hover:bg-opacity-90 transition flex items-center justify-center gap-2"
+        className="fixed flex font-playfair dark:bg-darkSecondary bottom-6 left-6 w-150 bg-primary text-white py-3 px-4 rounded-full shadow-xl z-50 hover:bg-opacity-90 transition flex items-center justify-center gap-2"
         >
         <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -43,12 +43,12 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
       {/* Filter Panel */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center">
-          <div className="bg-white w-11/12 max-w-lg p-6 rounded-lg shadow-lg">
+          <div className="bg-white dark:bg-darkBackground w-11/12 max-w-lg p-6 rounded-lg shadow-lg">
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-primary">Filters</h3>
+              <h3 className="text-xl font-semibold text-primary dark:text-white">Filters</h3>
               <button
                 onClick={() => setIsOpen(false)}
-                className="text-secondary text-2xl hover:text-red-600 transition"
+                className="text-secondary dark:text-white dark:hover:text-red-800 text-2xl hover:text-red-600 transition"
               >
                 <FaTimes />
               </button>
@@ -56,7 +56,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
 
             {/* Categories */}
             <div className="mb-6">
-              <h4 className="text-lg font-medium text-secondary mb-2">Category</h4>
+              <h4 className="text-lg font-medium text-secondary dark:text-darkAccent mb-2">Category</h4>
               <ul className="space-y-2">
                 {["Mules", "Slippers", "Sandals", "Palms"].map((category) => (
                   <li key={category}>
@@ -74,7 +74,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
                         }
                         className="text-accent focus:ring-primary"
                       />
-                      <span className="text-sm text-gray-700">{category}</span>
+                      <span className="text-sm dark:text-darkPrimary text-gray-700">{category}</span>
                     </label>
                   </li>
                 ))}
@@ -83,7 +83,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
 
             {/* Sizes */}
             <div className="mb-6">
-              <h4 className="text-lg font-medium text-secondary mb-2">Gender</h4>
+              <h4 className="text-lg font-medium dark:text-darkAccent text-secondary mb-2">Gender</h4>
               <ul className="space-y-2">
                 {["Male", "Female", "Neutral"].map((size) => (
                   <li key={size}>
@@ -97,7 +97,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
                         }
                         className="text-accent focus:ring-primary"
                       />
-                      <span className="text-sm text-gray-700">{size}</span>
+                      <span className="text-sm text-gray-700 dark:text-darkPrimary">{size}</span>
                     </label>
                   </li>
                 ))}
@@ -106,7 +106,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
 
             {/* Price Range */}
             <div className="mb-6">
-              <h4 className="text-lg font-medium text-secondary mb-2">
+              <h4 className="text-lg font-medium text-secondary mb-2 dark:text-darkAccent">
                 Price Range
               </h4>
               <input
@@ -116,22 +116,22 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
                 step="1000"
                 value={filters.price}
                 onChange={(e) => onFilterChange("price", e.target.value)}
-                className="w-full accent-primary"
+                className="w-full accent-primary dark:accent-darkPrimary"
               />
-              <p className="text-sm text-gray-700 mt-2">Up to ₦{filters.price}</p>
+              <p className="text-sm text-gray-700 mt-2 dark:text-darkPrimary">Up to ₦{filters.price}</p>
             </div>
 
             {/* Buttons */}
             <div className="flex justify-between">
               <button
                 onClick={onClearFilters}
-                className="bg-secondary text-white py-2 px-4 rounded hover:bg-opacity-90 transition"
+                className="bg-secondary dark:bg-darkSecondary text-white py-2 dark:hover:bg-opacity-60 px-4 rounded hover:bg-opacity-90 transition"
               >
                 Clear All
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="bg-primary text-white py-2 px-4 rounded hover:bg-opacity-90 transition"
+                className="bg-primary text-white py-2 dark:bg-darkAccent dark:hover:bg-opacity-60 px-4 rounded hover:bg-opacity-90 transition"
               >
                 Apply
               </button>

@@ -45,15 +45,15 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
 
   return isOpen ? (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 overflow-hidden">
+      <div className="bg-white dark:bg-darkSecondary rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 overflow-hidden">
         {/* Header */}
         <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-lg font-semibold text-primary font-playfair">
+          <h3 className="text-lg font-semibold dark:text-white text-primary font-playfair">
             {product.name}
           </h3>
           <button
             onClick={onClose}
-            className="text-primary text-2xl hover:text-red-600 transition"
+            className="text-primary dark:text-white dark:hover:text-red-700 text-2xl hover:text-red-600 transition"
           >
              <FaTimes />
           </button>
@@ -78,8 +78,8 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
               className="w-full h-64 object-cover rounded-md"
             />
 
-            <p className="text-accent font-medium mb-2">${product.price}</p>
-            <p className="text-sm text-gray-700 mb-4">
+            <p className="text-accent dark:text-darkAccent font-medium mb-2">₦{product.price}</p>
+            <p className="text-sm dark:text-darkPrimary text-gray-700 mb-4">
               {product.description || "Handcrafted with the finest materials."}
             </p>
 
@@ -98,7 +98,7 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
             {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
-              className="w-full bg-primary text-white py-2 rounded hover:bg-opacity-90 transition font-oswald"
+              className="w-full bg-primary dark:bg-darkAccent text-white py-2 rounded hover:bg-opacity-90 transition font-oswald"
             >
               Add to Cart
             </button>

@@ -4,7 +4,6 @@ import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Image from "next/image";
 
 const footwearImages = [
   { src: "/1.jpeg", title: "Luxury Mules" },
@@ -25,21 +24,21 @@ function ModernGallery() {
   return (
     <section
       id="gallery"
-      className="relative bg-background py-12 px-4 text-center"
+      className="relative bg-background dark:bg-darkBackground dark:text-darkAccent py-12 px-4 text-center"
       data-aos="fade-up"
     >
       {/* Header */}
       <div className="max-w-4xl mx-auto mb-8">
-        <h2 className="text-4xl sm:text-5xl font-playfair font-bold text-primary mb-4">
+        <h2 className="text-4xl sm:text-5xl font-playfair dark:text-white font-bold text-primary mb-4">
           Your Design, Our Expertise
         </h2>
-        <p className="text-lg text-secondary">
+        <p className="text-lg text-secondary dark:text-darkAccent">
           Upload a picture of your desired design, and we’ll replicate it with unmatched craftsmanship. Below are some of our successful replications.
         </p>
       </div>
 
       {/* Swipe Hint */}
-      <p className="text-sm text-gray-600 mb-4">Swipe on mobile or use arrows on desktop to explore our creations.</p>
+      <p className="text-sm text-gray-600 mb-4 dark:text-darkPrimary">Swipe on mobile or use arrows on desktop to explore our creations.</p>
 
       {/* Swiper Gallery */}
       <Swiper
@@ -65,7 +64,7 @@ function ModernGallery() {
               onClick={() => openLightbox(image)}
             >
               {/* Image */}
-              <Image
+              <img
                 src={image.src}
                 alt={image.title}
                 className="w-full h-96 object-cover transform group-hover:scale-105 transition-transform duration-500"
@@ -84,13 +83,13 @@ function ModernGallery() {
 
       {/* Custom Navigation Buttons */}
       <button
-        className="custom-prev hidden lg:block absolute left-4 top-1/2 transform -translate-y-1/2 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-all duration-300"
+        className="custom-prev hidden lg:block absolute left-4 top-1/2 transform -translate-y-1/2 bg-primary dark:bg-darkSecondary dark:hover:bg-darkAccent text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-all duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         <FaArrowLeft/>
       </button>
       <button
-        className="custom-next hidden lg:block absolute right-4 top-1/2 transform -translate-y-1/2 bg-primary text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-all duration-300"
+        className="custom-next hidden lg:block absolute right-4 top-1/2 transform -translate-y-1/2 bg-primary dark:bg-darkSecondary dark:hover:bg-darkAccent text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-all duration-300"
         onClick={(e) => e.stopPropagation()}
       >
         <FaArrowRight/>
@@ -102,7 +101,7 @@ function ModernGallery() {
           className="fixed inset-0 bg-black/80 flex items-center justify-center z-50"
           onClick={() => setShowLightbox(false)}
         >
-          <Image
+          <img
             src={currentImage.src}
             alt={currentImage.title}
             className="max-w-full max-h-full rounded-lg"
@@ -112,7 +111,7 @@ function ModernGallery() {
 
       {/* CTA */}
       <div className="mt-12">
-        <button className="px-6 py-3 bg-primary text-white text-lg rounded-lg shadow-lg hover:bg-secondary transition-colors duration-300">
+        <button className="px-6 py-3 bg-primary dark:hover:bg-darkAccent text-white text-lg rounded-lg shadow-lg dark:bg-darkSecondary dark:hover:bg-darkSecondary hover:bg-secondary transition-colors duration-300">
           Upload Your Design
         </button>
       </div>

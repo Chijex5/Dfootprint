@@ -2,7 +2,6 @@
 import React from "react";
 import { useCart } from "../components/CartContent";
 import Link from "next/link";
-import Image from "next/image";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
@@ -13,96 +12,131 @@ const CartPage = () => {
   };
 
   return (
-    <div className="p-8">
-      <div className="flex flex-col items-center justify-center h-full">
-  {/* Title */}
-  <h2 className="text-2xl font-bold text-primary mb-6">Your Cart</h2>
+    <div className="p-4 sm:p-8 bg-white min-h-screen">
+      <div className="max-w-4xl mx-auto flex flex-col space-y-8">
+        {/* Title */}
+        <h2 className="text-3xl font-bold text-primary text-center font-playfair">
+          Your Cart
+        </h2>
+    
+        {/* Empty Cart State */}
+        {cart.items.length === 0 ? (
+          <div className="flex flex-col items-center justify-center text-center space-y-6 min-h-[60vh]">
+            {/* Animated Cart GIF */}
+            <div className="w-screen h-64 bg-red sm:w-[400px] sm:h-80 md:w-[350px] md:h-[550px] lg:w-[400px] lg:h-[350px]">
+              <img
+                src="./12.gif" // Replace with the correct path
+                alt="Animated Empty Cart"
+                className="w-full h-full object-contain"
+              />
+            </div>
 
-  {/* Empty Cart State */}
-  {cart.items.length === 0 ? (
-    <div className="text-center">
-      {/* Empty Cart Icon */}
-      <div className="flex justify-center mb-4">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          className="h-20 w-20 text-gray-400"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M3 3h18l-1.68 9.403a4 4 0 01-3.96 3.597H8.64a4 4 0 01-3.96-3.597L3 3zM3 3h18M9 21a2 2 0 100-4 2 2 0 000 4zm6 0a2 2 0 100-4 2 2 0 000 4z"
-          />
-        </svg>
-      </div>
+            {/* Empty Cart Message */}
+            <p className="text-lg sm:text-xl text-secondary font-oswald">
+              Your cart is empty. Start adding your favorite items!
+            </p>
 
-      {/* Message */}
-      <p className="text-lg text-gray-600 mb-4">
-        Your cart is empty. Start adding some items!
-      </p>
-
-      {/* Call-to-Action Button */}
-      <Link href="/products"
-        className="bg-primary text-white py-2 px-6 rounded-lg shadow-md hover:bg-opacity-90 transition"
-      >
-        Continue Shopping
-      </Link>
-    </div>
-
-      ) : (
-        <ul className="divide-y divide-gray-200 bg-white shadow-md rounded-lg p-4">
-          {cart.items.map((item) => (
-            <li
-              key={item.id}
-              className="flex justify-between items-center py-4 px-4 rounded-md hover:bg-gray-50 transition duration-300"
+            {/* Call-to-Action Button */}
+            <Link
+              href="/products"
+              className="bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-opacity-90 transition font-oswald"
             >
-              <div className="flex items-center space-x-4">
-                {/* Image Placeholder (optional) */}
-                <div className="w-16 h-16 bg-gray-200 rounded-md flex-shrink-0">
-                  <Image
-                    src={item.image || "/placeholder.png"}
-                    alt={item.name}
-                    className="w-full h-full object-cover rounded-md"
-                  />
-                </div>
-
-                {/* Item Details */}
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-800">{item.name}</h3>
-                  <p className="text-sm text-gray-600">
-                    ${item.price} x {item.quantity}
-                  </p>
-                  <p className="text-sm font-medium text-gray-800">
-                    Total: ${(item.price * item.quantity).toFixed(2)}
-                  </p>
-                </div>
-              </div>
-
-              {/* Remove Button */}
+              Continue Shopping
+            </Link>
+          </div>
+        ) : (
+          <>
+            {/* Cart Items */}
+            <ul className="space-y-6">
+              {cart.items.map((item) => (
+                <li
+                  key={item.id}
+                  className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-lg shadow-md p-4 space-y-4 sm:space-y-0 sm:space-x-6"
+                >
+                  {/* Product Image */}
+                  <div className="w-full sm:w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
+                    <img
+                      src={item.image || "/placeholder.png"}
+                      alt={item.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+    
+                  {/* Product Details */}
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-primary font-playfair">
+                      {item.name}
+                    </h3>
+                    <p className="text-sm text-secondary">
+                      Size: <span className="font-medium">{item.size}</span>, Fit:{" "}
+                      <span className="font-medium">{item.fit}</span>
+                    </p>
+                    <p className="text-sm text-secondary">
+                      Price: ₦{item.price.toFixed(2)} x {item.quantity}
+                    </p>
+                    <p className="text-sm font-medium text-accent">
+                      Subtotal: ₦{(item.price * item.quantity).toFixed(2)}
+                    </p>
+                  </div>
+    
+                  {/* Remove Button */}
+                  <button
+                    onClick={() => handleRemoveFromCart(item.id)}
+                    className="text-sm font-medium text-red-600 hover:text-red-800 transition font-oswald"
+                  >
+                    Remove
+                  </button>
+                </li>
+              ))}
+            </ul>
+    
+            {/* Cart Summary */}
+            <div className="bg-white rounded-lg shadow-md p-6 space-y-4">
+              <h4 className="text-lg font-bold text-primary font-playfair">
+                Cart Summary
+              </h4>
+              <p className="text-sm text-secondary">
+                Items Total:{" "}
+                <span className="font-medium">
+                ₦{cart.items
+                    .reduce((total, item) => total + item.price * item.quantity, 0)
+                    .toFixed(2)}
+                </span>
+              </p>
+              <p className="text-sm text-secondary">
+                Delivery: <span className="font-medium">Free</span>
+              </p>
+              <p className="text-sm text-accent font-medium">
+                Grand Total:{" "}
+                <span className="text-primary">
+                ₦
+                  {cart.items
+                    .reduce((total, item) => total + item.price * item.quantity, 0)
+                    .toFixed(2)}
+                </span>
+              </p>
+            </div>
+    
+            {/* Actions */}
+            <div className="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0 sm:space-x-6">
               <button
-                onClick={() => handleRemoveFromCart(item.id)}
-                className="text-sm font-medium text-red-600 hover:text-red-800 transition"
+                onClick={() => dispatch({ type: "CLEAR_CART" })}
+                className="w-full sm:w-auto bg-secondary text-white py-3 px-6 rounded-lg hover:bg-opacity-90 transition font-oswald"
               >
-                Remove
+                Clear Cart
               </button>
-            </li>
-          ))}
-        </ul>
-
-      )}
-      {cart.items.length > 0 && (
-      <button
-        onClick={() => dispatch({ type: "CLEAR_CART" })}
-        className="mt-4 bg-secondary text-white py-2 px-4 rounded hover:bg-opacity-90"
-      >
-        Clear Cart
-      </button>
-      )}
+              <Link
+                href="/checkout"
+                className="w-full sm:w-auto bg-primary text-white py-3 px-6 rounded-lg shadow-md hover:bg-opacity-90 transition font-oswald"
+              >
+                Proceed to Checkout
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
     </div>
-  </div>
+  
   );
 };
 
