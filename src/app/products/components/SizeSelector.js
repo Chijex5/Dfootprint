@@ -4,6 +4,7 @@ const SizeSelector = ({
   setSelectedSize,
   selectedFit,
   setSelectedFit,
+  disabledSizes = [],
 }) => {
   const sizeRanges = {
     "21-30": [21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
@@ -29,8 +30,11 @@ const SizeSelector = ({
             <button
               key={size}
               onClick={() => setSelectedSize(size)}
+              disabled={disabledSizes.includes(size)}
               className={`py-2 px-3 rounded-md border dark:text-white dark:bg-darkBackground text-sm ${
-                selectedSize === size
+                disabledSizes.includes(size)
+                  ? "bg-gray-200 dark:bg-gray-400 text-gray-400 cursor-not-allowed" // Disabled style
+                  : selectedSize === size
                   ? "bg-primary dark:bg-darkPrimary text-white border-primary"
                   : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
               }`}

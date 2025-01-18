@@ -58,7 +58,7 @@ const FilterPanel = ({ filters, onFilterChange, onClearFilters }) => {
             <div className="mb-6">
               <h4 className="text-lg font-medium text-secondary dark:text-darkAccent mb-2">Category</h4>
               <ul className="space-y-2">
-                {["Mules", "Slippers", "Sandals", "Palms"].map((category) => (
+                {["Platform", "Flats", "Hermes", "Birken Stock", "Palms"].map((category) => (
                   <li key={category}>
                     <label className="flex items-center space-x-2">
                       <input

@@ -182,7 +182,7 @@ useEffect(() => {
         <DarkModeToggle
           visible={false}
         />
-        <div className="absolute inset-0 bg-black opacity-60 transition duration-500 ease-in-out"></div>
+        <div className="absolute inset-0 bg-darkBackground  opacity-60 dark:opacity-80 transition duration-500 ease-in-out"></div>
         <div className="relative z-10 text-center text-background p-4 md:p-8"> {/* Add padding for mobile */}
           <h1 className="text-4xl md:text-7xl font-bold font-playfair animate-fadeIn"> {/* Adjust font size for mobile */}
             Welcome to D&apos;footprint

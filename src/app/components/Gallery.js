@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import AOS from "aos";
 import "swiper/css";
 import "swiper/css/navigation";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import "aos/dist/aos.css";
 
 const footwearImages = [
   { src: "/1.jpeg", title: "Luxury Mules" },
@@ -16,6 +18,13 @@ function ModernGallery() {
   const [showLightbox, setShowLightbox] = useState(false);
   const [currentImage, setCurrentImage] = useState(null);
 
+  useEffect(() => {
+    AOS.init({
+      duration: 1000, // Animation duration
+      once: true, // Only animate once
+    });
+  }, []);
+
   const openLightbox = (image) => {
     setCurrentImage(image);
     setShowLightbox(true);
@@ -24,11 +33,17 @@ function ModernGallery() {
   return (
     <section
       id="gallery"
-      className="relative bg-background dark:bg-darkBackground dark:text-darkAccent py-12 px-4 text-center"
-      data-aos="fade-up"
+      className="relative bg-background dark:bg-darkBackground dark:text-darkAccent py-12 px-4 text-center overflow-hidden"
     >
+      {/* Background Decorative Element */}
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/20 via-secondary/40 to-primary/20 blur-2xl z-0 opacity-30 animate-move-gradient"></div>
+
       {/* Header */}
-      <div className="max-w-4xl mx-auto mb-8">
+      <div
+        className="max-w-4xl mx-auto mb-8 relative z-10"
+        data-aos="fade-up"
+        data-aos-duration="1500"
+      >
         <h2 className="text-4xl sm:text-5xl font-playfair dark:text-white font-bold text-primary mb-4">
           Your Design, Our Expertise
         </h2>
@@ -38,7 +53,13 @@ function ModernGallery() {
       </div>
 
       {/* Swipe Hint */}
-      <p className="text-sm text-gray-600 mb-4 dark:text-darkPrimary">Swipe on mobile or use arrows on desktop to explore our creations.</p>
+      <p
+        className="text-sm text-gray-600 mb-4 dark:text-darkPrimary relative z-10"
+        data-aos="fade-right"
+        data-aos-delay="200"
+      >
+        Swipe on mobile or use arrows on desktop to explore our creations.
+      </p>
 
       {/* Swiper Gallery */}
       <Swiper
@@ -55,13 +76,17 @@ function ModernGallery() {
           1024: { slidesPerView: 2 },
           1440: { slidesPerView: 3 },
         }}
-        className="max-w-6xl mx-auto"
+        className="max-w-6xl mx-auto relative z-10"
+        data-aos="fade-up"
+        data-aos-delay="300"
       >
         {footwearImages.map((image, index) => (
           <SwiperSlide key={index}>
             <div
               className="relative group overflow-hidden rounded-lg shadow-lg"
               onClick={() => openLightbox(image)}
+              data-aos="zoom-in"
+              data-aos-delay={400 + index * 100} // Stagger animations for each image
             >
               {/* Image */}
               <img
@@ -85,14 +110,18 @@ function ModernGallery() {
       <button
         className="custom-prev hidden lg:block absolute left-4 top-1/2 transform -translate-y-1/2 bg-primary dark:bg-darkSecondary dark:hover:bg-darkAccent text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-all duration-300"
         onClick={(e) => e.stopPropagation()}
+        data-aos="fade-right"
+        data-aos-delay="400"
       >
-        <FaArrowLeft/>
+        <FaArrowLeft />
       </button>
       <button
         className="custom-next hidden lg:block absolute right-4 top-1/2 transform -translate-y-1/2 bg-primary dark:bg-darkSecondary dark:hover:bg-darkAccent text-white p-3 rounded-full shadow-lg hover:bg-secondary transition-all duration-300"
         onClick={(e) => e.stopPropagation()}
+        data-aos="fade-left"
+        data-aos-delay="400"
       >
-        <FaArrowRight/>
+        <FaArrowRight />
       </button>
 
       {/* Lightbox */}
@@ -110,7 +139,7 @@ function ModernGallery() {
       )}
 
       {/* CTA */}
-      <div className="mt-12">
+      <div className="mt-12 relative z-10" data-aos="fade-up" data-aos-delay="500">
         <button className="px-6 py-3 bg-primary dark:hover:bg-darkAccent text-white text-lg rounded-lg shadow-lg dark:bg-darkSecondary dark:hover:bg-darkSecondary hover:bg-secondary transition-colors duration-300">
           Upload Your Design
         </button>

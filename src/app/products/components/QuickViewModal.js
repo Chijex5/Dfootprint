@@ -71,17 +71,22 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
         {/* Content */}
         <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Product Image */}
-          <div>
+          <div className="flex flex-col items-center justify-between">
             <img
               src={product.image}
               alt={product.name}
               className="w-full h-64 object-cover rounded-md"
             />
 
+            <div>
             <p className="text-accent dark:text-darkAccent font-medium mb-2">₦{product.price}</p>
             <p className="text-sm dark:text-darkPrimary text-gray-700 mb-4">
               {product.description || "Handcrafted with the finest materials."}
             </p>
+            </div>
+            <div className="flex items-center space-x-2">
+                <p className="text-sm dark:text-darkAccent text-gray-700">THE SIZES ON GRAY MEANS IT'S UNAVAILABLE</p>
+            </div>
 
           </div>
 
@@ -93,6 +98,7 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
               setSelectedSize={setSelectedSize}
               selectedFit={selectedFit}
               setSelectedFit={setSelectedFit}
+              disabledSizes={product.disabledSizes || []}
             />
 
             {/* Add to Cart Button */}
