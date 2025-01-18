@@ -85,7 +85,7 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
             </p>
             </div>
             <div className="flex items-center space-x-2">
-                <p className="text-sm dark:text-darkAccent text-gray-700">THE SIZES ON GRAY MEANS IT'S UNAVAILABLE</p>
+                <p className="text-sm dark:text-darkAccent text-gray-700">THE SIZES ON GRAY MEANS IT&apos;S UNAVAILABLE</p>
             </div>
 
           </div>

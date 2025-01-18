@@ -20,7 +20,7 @@ const Loader = () => {
 
       {/* Subtext */}
       <div className="mt-6 text-center">
-        <p className="text-xl font-semibold text-[#333]">D'FOOTPRINT</p>
+        <p className="text-xl font-semibold text-[#333]">D&apos;FOOTPRINT</p>
         <p className="text-sm text-[#555] tracking-wider">
           Handmade Elegance, Timeless Style
         </p>
