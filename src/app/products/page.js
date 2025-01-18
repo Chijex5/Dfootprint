@@ -15,7 +15,21 @@ const ShopNowPage = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
 
-
+  const renderComponent = () => {
+    if (type === "browse") {
+      return (
+        <Suspense fallback={<Loader />}>
+          <LazyHolder />
+        </Suspense>
+      );
+    } else {
+      return (
+        <Suspense fallback={<Loader />}>
+          <LazyHeroShopNowPage />
+        </Suspense>
+      );
+    }
+  };
 
 
   return (
@@ -42,12 +56,7 @@ const ShopNowPage = () => {
             </nav>
           </div>
         </header>
-        {type === "browse" ? (
-          <LazyHolder />
-        ) : (
-          <LazyHeroShopNowPage />
-        )}
-          
+        <renderComponent/>
       </div>
     </Suspense>
   );
