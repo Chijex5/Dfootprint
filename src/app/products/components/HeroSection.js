@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Link from "next/link";
 
-const HeroShopNowPage = () => {
+const HeroShopNowPage = ({onslick}) => {
     const [isMobile, setIsMobile] = useState(false);
     useEffect(() => {
         const checkMobile = () => {
@@ -64,11 +64,12 @@ const HeroShopNowPage = () => {
                 <p className="text-secondary dark:text-darkAccent text-base leading-relaxed mb-6">
                   Explore our curated range of handcrafted footwear, each crafted with care, quality, and timeless style.
                 </p>
-                <Link
+                <button
                   href="/products?type=browse"
+                  onClick={onslick}
                   className="inline-block bg-primary text-white dark:bg-darkPrimary py-3 px-6 rounded-md shadow hover:bg-opacity-90 transition">
                   View Products
-                </Link>
+                </button>
               </div>
             </div>
           </main>
