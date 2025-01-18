@@ -1,34 +1,20 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { Suspense } from "react";
 import DarkModeToggle from "../components/DarkMode";
 import Loader from "../components/Loader";
-import { Suspense } from 'react'
+
 import HeroShopNowPage from "./components/HeroSection";
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import Holder from "./components/Holder";
+const LazyHolder = React.lazy(() => import("./components/Holder"));
+const LazyHeroShopNowPage = React.lazy(() => import("./components/HeroSection"));
 
 
 const ShopNowPage = () => {
   const searchParams = useSearchParams();
   const type = searchParams.get("type");
-  const [loading, setLoading]=useState(true);
-  const [showBrowse, setShowBrowse] = useState(false);
-  useEffect(() => {
-    try {
-      if (type === "browse") {
-        console.log("Showing browse", type);
-        setShowBrowse(true);
-      } else {
-        console.log("Hiding browse", type);
-        setShowBrowse(false);
-      }
-    } catch (error) {
-      console.error("An error occurred:", error);
-    } finally {
-      setLoading(false);
-    }    
-  }, [type]);
+
 
 
 
@@ -56,16 +42,11 @@ const ShopNowPage = () => {
             </nav>
           </div>
         </header>
-        {loading ? (
-          <Loader />
-        ) : showBrowse ? (
-          <Holder />
+        {type === "browse" ? (
+          <LazyHolder />
         ) : (
-          <HeroShopNowPage />
+          <LazyHeroShopNowPage />
         )}
-
-
-          {/* Filter Panel */}
           
       </div>
     </Suspense>
