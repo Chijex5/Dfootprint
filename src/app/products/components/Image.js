@@ -34,7 +34,7 @@ const ProductImage = ({ src, alt }) => {
         className={`w-full h-full object-cover transition-transform duration-300 ${
           !isLoading ? "group-hover:scale-105" : "opacity-0"
         }`}
-        onLoadingComplete={() => setIsLoading(false)} // Hide skeleton when loading is complete
+        onLoad={() => setIsLoading(false)} // Hide skeleton when loading is complete
         onError={() => {
           setIsError(true); // Show placeholder if an error occurs
           setIsLoading(false);
