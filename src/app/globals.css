@@ -12,6 +12,12 @@ html::-webkit-scrollbar{
   display: none; /* Hide scrollbar */
 }
 
+.logo-circle{
+  position: relative;
+  width: 150px;
+  min-height: 150px;
+}
+
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
   :root {

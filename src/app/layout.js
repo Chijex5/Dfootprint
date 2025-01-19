@@ -2,6 +2,23 @@ import "./globals.css";
 import "./animations.css";
 import { Analytics } from "@vercel/analytics/react"
 import { CartProvider } from "./components/CartContent";
+import DarkModeToggle from "./components/DarkMode";
+
+if (typeof window !== "undefined") {
+  const storedMode = localStorage.getItem("darkMode") === "true";
+  if (storedMode) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}
+
+// Define a global function for toggling dark mode
+globalThis.toggleDarkMode = () => {
+  const isDarkMode = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("darkMode", isDarkMode.toString());
+};
+
 
 export const metadata = {
   title: "D'Footprint | Luxury at Your Feet",
@@ -17,8 +34,31 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* Add a script to set dark mode before the app renders */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  const storedMode = localStorage.getItem('darkMode');
+                  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  if (storedMode === 'true' || (storedMode === null && prefersDark)) {
+                    document.documentElement.classList.add('dark');
+                  } else {
+                    document.documentElement.classList.remove('dark');
+                  }
+                } catch (e) {
+                  console.error('Error setting dark mode:', e);
+                }
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="antialiased">
         <CartProvider>
+          <DarkModeToggle visible={false}/>
           {children}
           <Analytics />
         </CartProvider>

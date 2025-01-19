@@ -6,7 +6,7 @@ const MessageModal = ({
   messageText = "This is a message.",
   onClose,
   autoClose = true,
-  autoCloseDelay = 3000, // Delay in milliseconds
+  autoCloseDelay = 5000, // Delay in milliseconds
 }) => {
   // Automatically close the modal after a delay
   useEffect(() => {

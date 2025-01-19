@@ -3,6 +3,7 @@ import { useCart } from "../../components/CartContent";
 import SizeSelector from "./SizeSelector";
 import { FaTimes } from "react-icons/fa";
 import MessageModal from "../../components/MessageComponent";
+import ProductImage from "./Image";
 
 const QuickViewModal = ({ product, isOpen, onClose }) => {
   const { cart, dispatch } = useCart();
@@ -72,10 +73,9 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
         <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           {/* Product Image */}
           <div className="flex flex-col items-center justify-between">
-            <img
+            <ProductImage
               src={product.image}
               alt={product.name}
-              className="w-full h-64 object-cover rounded-md"
             />
 
             <div>
@@ -85,7 +85,7 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
             </p>
             </div>
             <div className="flex items-center space-x-2">
-                <p className="text-sm dark:text-darkAccent text-gray-700">"SIZES IN GRAY ARE CURRENTLY UNAVAILABLE."</p>
+                <p className="text-sm dark:text-darkAccent text-gray-700">SIZES IN GRAY ARE CURRENTLY UNAVAILABLE.</p>
             </div>
 
           </div>

@@ -2,6 +2,7 @@
 import React from "react";
 import { useCart } from "../components/CartContent";
 import Link from "next/link";
+import ProductImage from "../products/components/Image";
 
 const CartPage = () => {
   const { cart, dispatch } = useCart();
@@ -54,13 +55,12 @@ const CartPage = () => {
                   className="flex flex-col sm:flex-row items-center justify-between bg-white rounded-lg shadow-md p-4 space-y-4 sm:space-y-0 sm:space-x-6"
                 >
                   {/* Product Image */}
-                  <div className="w-full sm:w-20 h-20 bg-gray-100 rounded-lg overflow-hidden">
-                    <img
-                      src={item.image || "/placeholder.png"}
+                  <div className="flex flex-col items-center justify-between">
+                    <ProductImage
+                      src={item.image}
                       alt={item.name}
-                      className="w-full h-full object-cover"
                     />
-                  </div>
+                    </div>
     
                   {/* Product Details */}
                   <div className="flex-1">
@@ -72,7 +72,7 @@ const CartPage = () => {
                       <span className="font-medium">{item.fit}</span>
                     </p>
                     <p className="text-sm text-secondary">
-                      Price: ₦{item.price.toFixed(2)} x {item.quantity}
+                      Price: ₦{item.price} x {item.quantity}
                     </p>
                     <p className="text-sm font-medium text-accent">
                       Subtotal: ₦{(item.price * item.quantity).toFixed(2)}

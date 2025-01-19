@@ -25,6 +25,15 @@ module.exports = {
         inconsolata: ['Inconsolata', 'monospace'],
         playfair: ['Playfair Display', 'serif'],
       },
+      animation: {
+        bounce: "bounce 1.5s ease-in-out infinite",
+      },
+      keyframes: {
+        bounce: {
+          "0%, 100%": { transform: "translateY(-50px) scale(1)" },
+          "50%": { transform: "translateY(-60px) scale(1.2)" },
+        },
+      },
     },
   },
   plugins: [],

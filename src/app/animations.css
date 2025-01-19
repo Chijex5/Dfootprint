@@ -21,6 +21,34 @@
   }
 }
 
+
+@keyframes circle-fall {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  25% {
+    transform: translateY(10px);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(20px);
+    opacity: 0.5;
+  }
+  75% {
+    transform: translateY(-10px);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-circle-fall {
+  animation: circle-fall 1.2s infinite ease-in-out;
+}
+
 /* Slide-in styles */
 .socials{
     background-color: #F0F5F7;
