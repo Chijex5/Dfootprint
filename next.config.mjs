@@ -1,8 +1,16 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['drive.google.com'],
+      remotePatterns: [
+        {
+          protocol: "https",
+          hostname: "drive.google.com",
+          port: "",
+          pathname: "/uc*", // Matches "https://drive.google.com/uc?id="
+        },
+      ],
     },
-};
-
-export default nextConfig;
+  };
+  
+  export default nextConfig;
+  
