@@ -16,6 +16,7 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
       });
   const [isLoading, setIsLoading] = useState(false);
   const [message, setMessage] = useState(null);
+  console.log(product)
 
   const categories = ["Platform", "Flats", "Hermes", "Birken Stock", "Palms", "Half Shoes"];
   const sizes = ["Female", "Male", "Neutral"];

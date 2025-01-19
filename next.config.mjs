@@ -4,13 +4,19 @@ const nextConfig = {
       remotePatterns: [
         {
           protocol: "https",
-          hostname: "drive.google.com",
+          hostname: "res.cloudinary.com", // Allow images from Cloudinary
           port: "",
-          pathname: "/uc*", // Matches "https://drive.google.com/uc?id="
+          pathname: "/**", // Allow all paths
+        },
+        {
+          protocol: "https",
+          hostname: "drive.google.com", // Allow images from Google Drive
+          port: "",
+          pathname: "/**", // Matches "https://drive.google.com/uc?id="
         },
       ],
     },
   };
   
-  export default nextConfig;
+  export default nextConfig;  
   

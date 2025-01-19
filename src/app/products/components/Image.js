@@ -5,19 +5,6 @@ const ProductImage = ({ src, alt }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const convertDriveLink = (url) => {
-    if (!url) return null;
-    const fileId = url.split("id=")[1];
-    return fileId
-      ? `https://drive.google.com/uc?export=download&id=${fileId}`
-      : null;
-  };
-  
-  // Example Usage
-
-  const convertedUrl = convertDriveLink(src); // Output: https://drive.google.com/uc?export=download&id=1potVLLoPs136QJTfxnVZTh_QzbzhAPV1
-  
-
   return (
     <div className="relative w-full h-64">
       {/* Skeleton loader */}
@@ -26,8 +13,8 @@ const ProductImage = ({ src, alt }) => {
       )}
 
       {/* Image */}
-      <Image
-        src={isError ? "/default-placeholder.png" : convertedUrl} // Fallback to placeholder on error
+      <img
+        src={isError ? "/3.jpeg" : src} // Fallback to placeholder on error
         alt={alt}
         width={640}
         height={480}

@@ -21,6 +21,7 @@ const ProductManagementPage = () => {
       setLoading(true);
       const response = await axios.get("https://dfootprint-backend.onrender.com/api/product-list");
       setProducts(response.data);
+      console.log(products)
       setLoading(false);
       setIsRetrying(false);
     } catch (err) {
