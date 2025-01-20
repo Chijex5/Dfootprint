@@ -8,10 +8,27 @@ import "swiper/css/navigation";
 import "aos/dist/aos.css";
 
 const footwearImages = [
-  { src: "/1.jpeg", title: "Luxury Mules" },
-  { src: "/2.jpeg", title: "Timeless Slippers" },
-  { src: "/3.jpeg", title: "Custom Elegance" },
-  { src: "/4.jpeg", title: "Comfort Meets Style" },
+  { src: "/50.jpg", title: "Flats" },
+  { src: "/49.jpg", title: "Hermes Slides" },
+  { src: "/37.jpg", title: "Half Shoe" },
+  { src: "/44.jpg", title: "Blue Flats" },
+  { src: "/48.jpg", title: "Inspired by a customer" },
+  { src: "/47.jpg", title: "Black Flats" },
+  { src: "/36.jpg", title: "More shoes for men" },
+  { src: "/35.jpg", title: "For your natives" },
+  { src: "/31.jpg", title: "Varieties of green" },
+  { src: "/23.jpg", title: "For Palm Lovers" },
+  { src: "/27.jpg", title: "Flat sandals" },
+  { src: "/15.jpg", title: "Hermes Again" },
+  { src: "/16.jpg", title: "Jeans Themed style" },
+  { src: "/21.jpg", title: "Black & Red" },
+  { src: "/20.jpg", title: "Blue cross" },
+  { src: "/39.jpg", title: "brown" },
+  { src: "/26.jpg", title: "Weaved Palms" },
+  { src: "/40.jpg", title: "Skin Palm" },
+  { src: "/3.jpeg", title: "Bally" },
+  { src: "/1.jpeg", title: "Betulla" },
+
 ];
 
 function ModernGallery() {

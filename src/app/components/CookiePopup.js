@@ -22,17 +22,30 @@ const CookiePopup = () => {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 bg-primary dark:bg-darkAccent p-4 text-white z-50 shadow-md w-[100%]">
-      <p className="mb-4">We use cookies to enhance your browsing experience. By continuing to browse, you accept our use of cookies.</p>
-      <div className="flex items-center justify-center w-[100%]">
+    <div className="fixed bottom-4 left-4 right-4 md:left-6 md:right-6 bg-primary dark:bg-darkAccent p-6 text-white z-50 shadow-lg rounded-lg max-w-[90%] md:max-w-[60%] mx-auto">
+  {/* Content Section */}
+  <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+    <p className="text-sm md:text-base">
+      We use cookies to improve your browsing experience. By continuing, you accept our cookie policy.
+    </p>
+
+    {/* Button Section */}
+    <div className="flex flex-col md:flex-row items-center gap-2">
       <button
         onClick={handleAccept}
-        className="bg-accent text-white border border-2 px-4 dark:border-darkBackground dark:bg-darkAccent py-2 rounded hover:bg-accent-dark transition-colors"
+        className="bg-accent dark:bg-darkPrimary text-white px-6 py-2 rounded-lg shadow-md hover:bg-secondary dark:hover:bg-darkSecondary transition-colors text-sm md:text-base"
       >
         Accept
       </button>
-      </div>
+      <a
+        href="/termsandcondition"
+        className="text-accent underline hover:text-secondary dark:text-darkSecondary dark:hover:text-darkBackground text-sm md:text-base"
+      >
+        Learn More
+      </a>
     </div>
+  </div>
+</div>
   );
 };
 

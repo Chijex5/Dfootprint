@@ -1,102 +1,108 @@
-"use client";
+"use client"
+import React, { useState } from "react";
 
-import { useState } from "react";
+const FAQPage = () => {
+  const [expandedQuestion, setExpandedQuestion] = useState(null);
 
-// Function to generate fake FAQs
-const generateFakeFAQs = (count) => {
-  const fakeFAQs = [];
-  for (let i = 1; i <= count; i++) {
-    fakeFAQs.push({
-      question: `Common Question ${i}`,
-      answer: `This is the detailed explanation for question ${i}, covering all aspects you may need to know.`,
-    });
-  }
-  return fakeFAQs;
-};
+  const toggleQuestion = (index) => {
+    setExpandedQuestion(expandedQuestion === index ? null : index);
+  };
 
-const FAQ = () => {
-  const initialFaqs = [
+  const faqs = [
     {
-      question: "What is the return policy?",
-      answer: "You can return any item within 30 days of purchase as long as it's in its original condition and packaging.",
+      question: "What is your return policy?",
+      answer:
+        "We accept returns for non-customized products within 14 days of delivery. Items must be unused and in their original packaging. Custom orders are non-refundable.",
     },
     {
-      question: "How can I track my order?",
-      answer: (
-        <>
-          You can track your order by visiting the{" "}
-          <a href="/track" className="text-blue-500 underline">
-            Track Your Order
-          </a>{" "}
-          page.
-        </>
-      ),
+      question: "Who is responsible for delivery costs?",
+      answer:
+        "Delivery costs are covered by the customer unless specified otherwise during promotions or special offers.",
     },
     {
-      question: "Do you offer international shipping?",
-      answer: "Yes, we offer worldwide shipping. Shipping costs and delivery times vary.",
+      question: "How long does it take to create my order?",
+      answer:
+        "Production typically takes 5–10 business days for standard items. Custom orders may take longer, depending on complexity.",
     },
-    // Add 80 fake FAQs for testing
-    ...generateFakeFAQs(80),
+    {
+      question: "How can I send my design for a custom order?",
+      answer:
+        "You can upload your design directly on our website through the 'Custom Order' section. Include clear specifications and reference images.",
+    },
+    {
+      question: "How long will it take to know if you can create my custom order?",
+      answer:
+        "Our team will review your design and respond within 24–48 hours with confirmation and pricing details.",
+    },
+    {
+      question: "What happens if I order the wrong size?",
+      answer:
+        "For non-custom products, you can exchange for the correct size within 14 days. Custom orders are made to your specifications and are non-exchangeable.",
+    },
+    {
+      question: "What is your refund policy?",
+      answer:
+        "Refunds are available for defective non-custom items returned within the specified return period. Custom orders are not eligible for refunds.",
+    },
+    {
+      question: "How does the custom order process work?",
+      answer:
+        "1. Submit your design via our website.\n2. Receive a confirmation and quote within 24–48 hours.\n3. Make payment to confirm your order.\n4. Your custom footwear will be crafted and shipped to you.",
+    },
   ];
 
-  const [faqs, setFaqs] = useState(initialFaqs);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [activeIndex, setActiveIndex] = useState(null);
-
-  const handleToggle = (index) => {
-    setActiveIndex(index === activeIndex ? null : index);
-  };
-
-  const handleSearch = (e) => {
-    const term = e.target.value.toLowerCase();
-    setSearchTerm(term);
-    const filteredFaqs = initialFaqs.filter((faq) => {
-      const questionText = faq.question.toLowerCase();
-      const answerText = typeof faq.answer === "string" ? faq.answer.toLowerCase() : "";
-      return questionText.includes(term) || answerText.includes(term);
-    });
-    setFaqs(filteredFaqs);
-  };
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 text-gray-900">
-      <h1 className="text-4xl font-bold mb-6">Frequently Asked Questions</h1>
-
-      {/* Search bar */}
-      <div className="w-full md:w-3/4 lg:w-1/2 mb-6">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={handleSearch}
-          placeholder="Search FAQs..."
-          className="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring focus:border-blue-300"
-        />
-      </div>
-
-      <div className="w-full md:w-3/4 lg:w-1/2 space-y-4">
-        {faqs.length > 0 ? (
-          faqs.map((faq, index) => (
-            <div key={index} className="border-b border-gray-200">
+    <div className="min-h-screen bg-background dark:bg-darkBackground text-secondary dark:text-darkAccent py-12 px-6">
+      <div className="max-w-5xl mx-auto">
+        <h1 className="text-4xl font-bold text-primary dark:text-white text-center mb-8">
+          Frequently Asked Questions (FAQs)
+        </h1>
+        <p className="text-center text-gray-600 dark:text-darkAccent mb-12">
+          Find answers to common questions about our products, services, and
+          policies.
+        </p>
+        <div className="space-y-6">
+          {faqs.map((faq, index) => (
+            <div
+              key={index}
+              className={`border-b ${
+                expandedQuestion === index
+                  ? "border-primary dark:border-darkPrimary"
+                  : "border-gray-300 dark:border-darkSecondary"
+              } pb-4`}
+            >
               <button
-                onClick={() => handleToggle(index)}
-                className="w-full p-4 text-left text-lg font-semibold bg-white hover:bg-gray-100 focus:outline-none transition-colors"
+                onClick={() => toggleQuestion(index)}
+                className="flex justify-between items-center w-full focus:outline-none"
               >
-                {faq.question}
+                <h2
+                  className={`text-lg font-semibold ${
+                    expandedQuestion === index
+                      ? "text-primary dark:text-darkPrimary"
+                      : "text-gray-800 dark:text-white"
+                  }`}
+                >
+                  {faq.question}
+                </h2>
+                <span
+                  className={`text-xl transition-transform duration-300 ${
+                    expandedQuestion === index ? "rotate-180" : ""
+                  }`}
+                >
+                  ▼
+                </span>
               </button>
-              {activeIndex === index && (
-                <div className="p-4 bg-white text-gray-700">
-                  <p>{faq.answer}</p>
-                </div>
+              {expandedQuestion === index && (
+                <p className="mt-4 text-gray-600 dark:text-darkAccent whitespace-pre-line">
+                  {faq.answer}
+                </p>
               )}
             </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No FAQs match your search.</p>
-        )}
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default FAQ;
+export default FAQPage;

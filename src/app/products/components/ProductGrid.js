@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductImage from "./Image";
 import Loader from "@/app/components/Loader";
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 import ErrorPage from "@/app/components/ErrorPage";
 
@@ -96,13 +97,12 @@ const [isRetrying, setIsRetrying] = useState(false);
           <div className="flex flex-col items-center w-screen justify-center text-center space-y-6 min-h-screen">
             {/* Animated GIF */}
             <div className="w-64 h-64 sm:w-80 sm:h-80 md:w-[350px] md:h-[350px] lg:w-[400px] lg:h-[400px]">
-              <img
-                src="./14.gif"
-                alt="No Products Found"
-                className="w-full h-full object-contain"
-              />
+              <DotLottieReact
+                src="./main.lottie"
+                loop
+                autoplay
+                />
             </div>
-
             {/* No Products Found Message */}
             <p className="text-lg sm:text-xl md:text-2xl text-secondary font-oswald">
               Sorry, no products found!

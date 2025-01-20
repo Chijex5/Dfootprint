@@ -18,7 +18,7 @@ const AddProductModal = ({ onClose, setProducts }) => {
   const [isLoading, setIsLoading] = useState(false);
    const [message, setMessage] = useState(null);
 
-  const categories = ["Platform", "Flats", "Hermes", "Birken Stock", "Palms", "Half Shoes"];
+  const categories = ["Platform", "Flats", "Hermes", "Sandals", "Birken Stock", "Palms", "Half Shoes"];
   const sizes = ["Female", "Male", "Neutral"];
 
   const handleInputChange = (e) => {
@@ -54,6 +54,28 @@ const AddProductModal = ({ onClose, setProducts }) => {
   };
 
   const handleAddProduct = async () => {
+
+    if (!formData.name.trim()) {
+        setMessage({ type: "error", text: "Product name is required." });
+        return;
+      }
+      if (!formData.price || isNaN(Number(formData.price))) {
+        setMessage({ type: "error", text: "A valid price is required." });
+        return;
+      }
+      if (!formData.category) {
+        setMessage({ type: "error", text: "Please select a category." });
+        return;
+      }
+      if (!formData.size) {
+        setMessage({ type: "error", text: "Please select a gender category." });
+        return;
+      }
+      if (!formData.image) {
+        setMessage({ type: "error", text: "Please upload an image." });
+        return;
+      }
+
     const productData = new FormData(); // Create a FormData object for the request
     productData.append("name", formData.name);
     productData.append("price", formData.price);
@@ -90,7 +112,7 @@ const AddProductModal = ({ onClose, setProducts }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bbg-background dark:bg-darkBackground p-6 rounded-lg shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+      <div className="bg-background dark:bg-darkBackground p-6 rounded-lg shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
         <h2 className="text-2xl font-semibold text-primary dark:text-darkAccent mb-4">Add New Product</h2>
         {message && (
           <MessageModal

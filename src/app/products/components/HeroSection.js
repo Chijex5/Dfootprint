@@ -22,7 +22,7 @@ const HeroShopNowPage = ({onslick}) => {
       }, []);
 
       return (
-        <div className="bg-background dark:bg-darkBackground min-h-screen">
+        <div className="bg-background dark:bg-darkBackground">
           {/* Header */}
           <header className="bg-primary text-white dark:bg-darkPrimary py-8 px-6 md:px-12 mt-[80px]">
             <div className="max-w-5xl mx-auto text-center">
@@ -75,7 +75,7 @@ const HeroShopNowPage = ({onslick}) => {
           </main>
     
           {/* Footer */}
-          <footer className="bg-secondary text-white dark:bg-darkSecondary py-6 px-6 md:px-12">
+          <footer className="absolute buttom bg-secondary text-white dark:bg-darkSecondary py-6 px-6 md:px-12">
             <div className="text-center">
               <p className="text-sm font-light">
                 Experience unmatched craftsmanship. Your dream footwear is just a few clicks away.

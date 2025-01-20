@@ -1,3 +1,5 @@
+import React, { useState } from "react";
+import MessageModal from "../../components/MessageComponent";
 
 const SizeSelector = ({
   selectedSize,
@@ -6,6 +8,8 @@ const SizeSelector = ({
   setSelectedFit,
   disabledSizes = [],
 }) => {
+  const [infoMessage, setInfoMessage] = useState(null);
+
   const sizeRanges = {
     "21-30": [21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
     "31-40": [31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
@@ -14,41 +18,57 @@ const SizeSelector = ({
 
   const fits = ["Small", "Normal", "Big"];
 
-  const sizeRange = Object.keys(sizeRanges).find((range) =>
-    sizeRanges[range].includes(selectedSize)
-  );
+  const handleSizeClick = (size) => {
+    if (disabledSizes.includes(size)) {
+      setInfoMessage(
+        "This size is unavailable for the selected instance of the shoe. Please check other options for the same shoe."
+      );
+    } else {
+      setSelectedSize(size);
+    }
+  };
 
   return (
     <div>
+      {/* Info Modal */}
+      {infoMessage && (
+        <MessageModal
+          messageType="info"
+          messageText={infoMessage}
+          onClose={() => setInfoMessage(null)}
+        />
+      )}
+
       {/* Size Range and Size Selector */}
       <div className="mb-4">
         <label className="block text-sm font-medium dark:text-darkPrimary text-primary font-oswald">
           Select Size
         </label>
         <div className="grid grid-cols-5 gap-2">
-          {Object.values(sizeRanges).flat().map((size) => (
-            <button
-              key={size}
-              onClick={() => setSelectedSize(size)}
-              disabled={disabledSizes.includes(size)}
-              className={`py-2 px-3 rounded-md border dark:text-white dark:bg-darkBackground text-sm ${
-                disabledSizes.includes(size)
-                  ? "bg-gray-200 dark:bg-gray-400 text-gray-400 cursor-not-allowed" // Disabled style
-                  : selectedSize === size
-                  ? "bg-primary dark:bg-darkPrimary text-white border-primary"
-                  : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-              }`}
-            >
-              {size}
-            </button>
-          ))}
+          {Object.values(sizeRanges)
+            .flat()
+            .map((size) => (
+              <button
+                key={size}
+                onClick={() => handleSizeClick(size)}
+                className={`py-2 px-3 rounded-md border text-sm dark:text-white dark:bg-darkBackground ${
+                  disabledSizes.includes(size)
+                    ? "bg-gray-200 dark:bg-gray-400 text-gray-400 hover:bg-gray-300 cursor-pointer"
+                    : selectedSize === size
+                    ? "bg-primary dark:bg-darkPrimary text-white border-primary"
+                    : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                }`}
+              >
+                {size}
+              </button>
+            ))}
         </div>
       </div>
 
       {/* Fit Selector */}
       {selectedSize && (
         <div className="mb-4">
-          <label className="block dark:text-darkPrimary text-sm font-medium text-primary font-oswald">
+          <label className="block text-sm font-medium dark:text-darkPrimary text-primary font-oswald">
             Select Fit
           </label>
           <div className="flex gap-2">
@@ -56,7 +76,7 @@ const SizeSelector = ({
               <button
                 key={fit}
                 onClick={() => setSelectedFit(fit)}
-                className={`py-2 px-4 rounded-md border dark:text-white dark:bg-darkBackground text-sm ${
+                className={`py-2 px-4 rounded-md border text-sm dark:text-white dark:bg-darkBackground ${
                   selectedFit === fit
                     ? "bg-primary dark:bg-darkPrimary text-white border-primary"
                     : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"

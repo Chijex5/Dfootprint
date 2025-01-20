@@ -1,132 +1,225 @@
-import React from "react";
+"use client"
+import React, { useState, useEffect, useRef } from "react";
+import { FaBars } from "react-icons/fa";
 
-const TermsOfService = () => {
+const TermsAndConditions = () => {
+  const [activeSection, setActiveSection] = useState("");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const sectionsRef = useRef({});
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    const sections = document.querySelectorAll("section");
+    sections.forEach((section) => observer.observe(section));
+
+    return () => observer.disconnect();
+  }, []);
+
+  const handleMenuToggle = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
-    <div className="min-h-screen bg-primary text-secondary px-6 py-12">
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-8">
-        <h1 className="text-3xl font-bold text-center mb-8 border-b-4 border-secondary pb-4">
-          Terms of Service
-        </h1>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">General Overview</h2>
-          <p className="text-gray-700">
-            D&apos;Footprint specializes in creating custom handmade footwear
-            tailored to your unique specifications. By placing an order or
-            engaging with our website, you acknowledge and agree to the
-            following:
-          </p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Ordering Process</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-3">
-            <li>
-              <strong>Custom Orders:</strong> All orders are handmade according
-              to the size, description, and preferences provided by the
-              customer. It is your responsibility to ensure that all
-              information provided (e.g., size, style, design) is accurate
-              before finalizing your order.
-            </li>
-            <li>
-              <strong>Payment Terms:</strong> Full payment is required at the
-              time of order placement unless otherwise agreed upon. Payment
-              confirms your acceptance of these Terms of Service.
-            </li>
-            <li>
-              <strong>Order Modifications:</strong> Modifications or
-              cancellations can only be made within <strong>24 hours</strong> of
-              placing an order. Requests for modifications after this window may
-              not be accommodated.
-            </li>
+    <div className="min-h-screen bg-background text-secondary dark:bg-darkSecondary flex">
+      {/* Sidebar Navigation */}
+      <aside
+        className={`fixed top-0 h-full z-50 md:w-1/4 bg-white dark:bg-darkBackground shadow-lg p-6 transform transition-transform duration-300 ${
+          isMenuOpen ? "translate-x-0" : "-translate-x-full"
+        } md:translate-x-0`}
+      >
+        <h2 className="text-2xl font-bold mb-6">Sections</h2>
+        <nav>
+          <ul className="space-y-4 text-gray-700 dark:text-darkAccent">
+            {[
+              "overview",
+              "ordering",
+              "shipping",
+              "returns",
+              "responsibilities",
+              "liability",
+              "property",
+            ].map((section) => (
+              <li key={section}>
+                <a
+                  href={`#${section}`}
+                  className={`hover:text-primary dark:hover:text-darkPrimary ${
+                    activeSection === section
+                      ? "text-primary dark:text-darkPrimary font-semibold"
+                      : ""
+                  }`}
+                >
+                  {section
+                    .charAt(0)
+                    .toUpperCase()
+                    .concat(section.slice(1).replace("-", " "))}
+                </a>
+              </li>
+            ))}
           </ul>
-        </section>
+        </nav>
+      </aside>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Shipping Policy</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-3">
-            <li>
-              <strong>Delivery Timeframe:</strong> Orders will be processed and
-              shipped within the timeframe communicated during purchase. Please
-              allow extra time for handmade production. Delivery delays caused
-              by courier services are outside of D&apos;Footprint&apos;s control.
-            </li>
-            <li>
-              <strong>Shipping Costs:</strong> Customers are responsible for
-              shipping costs unless stated otherwise during promotional offers.
-            </li>
-            <li>
-              <strong>Lost or Damaged Parcels:</strong> D&apos;Footprint is not
-              liable for lost or damaged parcels after they have been shipped.
-              If you encounter an issue, please contact the courier service
-              directly.
-            </li>
-          </ul>
-        </section>
+      {/* Hamburger Menu for Mobile */}
+      <button
+        onClick={handleMenuToggle}
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-primary dark:bg-darkPrimary text-white rounded-md shadow-lg"
+      >
+        <FaBars />
+      </button>
 
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Returns and Exchanges</h2>
-          <p className="text-gray-700">
-            For details on returns and exchanges, refer to our{" "}
-            <a
-              href="/return-policy"
-              className="text-primary font-semibold hover:underline"
+      {/* Main Content */}
+      <main className="flex-1 px-6 py-12 md:ml-[25%]">
+        <div className="max-w-5xl mx-auto">
+          <header className="mb-12">
+            <h1 className="text-4xl font-bold text-center mb-4 text-primary dark:text-white">
+              Terms of Service
+            </h1>
+            <p className="text-center text-gray-600 dark:text-darkAccent">
+              Last updated: January 20, 2025
+            </p>
+          </header>
+
+          {/* Sections */}
+          {[
+            {
+              id: "overview",
+              title: "General Overview",
+              content: (
+                <p className="leading-relaxed text-gray-700 dark:text-white">
+                  D&apos;Footprint specializes in creating custom handmade
+                  footwear tailored to your unique specifications. By placing an
+                  order or engaging with our website, you acknowledge and agree
+                  to the following:
+                </p>
+              ),
+            },
+            {
+              id: "ordering",
+              title: "Ordering Process",
+              content: (
+                <ul className="list-disc pl-5 space-y-4 text-gray-700 dark:text-white">
+                  <li>
+                    <strong>Custom Orders:</strong> All orders are handmade
+                    according to the size, description, and preferences provided
+                    by the customer. Ensure that all information is accurate
+                    before finalizing your order.
+                  </li>
+                  <li>
+                    <strong>Payment Terms:</strong> Full payment is required at
+                    the time of order placement unless otherwise agreed upon.
+                  </li>
+                  <li>
+                    <strong>Order Modifications:</strong> Changes can only be
+                    made within <strong>24 hours</strong>.
+                  </li>
+                </ul>
+              ),
+            },
+            {
+              id: "shipping",
+              title: "Shipping Policy",
+              content: (
+                <ul className="list-disc pl-5 space-y-4 text-gray-700 dark:text-white">
+                  <li>
+                    <strong>Delivery Timeframe:</strong> Orders are processed
+                    and shipped promptly, but delays caused by couriers are
+                    outside our control.
+                  </li>
+                  <li>
+                    <strong>Shipping Costs:</strong> Customers cover shipping
+                    costs unless stated otherwise.
+                  </li>
+                  <li>
+                    <strong>Lost or Damaged Parcels:</strong> We are not liable
+                    for parcels once shipped. Contact the courier for
+                    assistance.
+                  </li>
+                </ul>
+              ),
+            },
+            {
+              id: "returns",
+              title: "Returns and Exchanges",
+              content: (
+                <p className="text-gray-700 dark:text-white">
+                  For details, refer to our{" "}
+                  <a
+                    href="/return-policy"
+                    className="text-primary dark:text-background font-semibold hover:underline"
+                  >
+                    Return Policy
+                  </a>
+                  .
+                </p>
+              ),
+            },
+            {
+              id: "responsibilities",
+              title: "Customer Responsibilities",
+              content: (
+                <ul className="list-disc pl-5 space-y-4 text-gray-700 dark:text-white">
+                  <li>Maintain confidentiality of your account information.</li>
+                  <li>
+                    Refrain from misuse of our services or violating laws.
+                  </li>
+                  <li>
+                    Provide accurate contact details for updates or support.
+                  </li>
+                </ul>
+              ),
+            },
+            {
+              id: "liability",
+              title: "Limitations of Liability",
+              content: (
+                <ul className="list-disc pl-5 space-y-4 text-gray-700 dark:text-white">
+                  <li>
+                    Errors caused by incorrect customer-provided details.
+                  </li>
+                  <li>Delays or issues beyond our reasonable control.</li>
+                  <li>
+                    Indirect or consequential damages from our products.
+                  </li>
+                </ul>
+              ),
+            },
+            {
+              id: "property",
+              title: "Intellectual Property",
+              content: (
+                <p className="text-gray-700 dark:text-white">
+                  All content, designs, and materials are the exclusive property
+                  of D&apos;Footprint. Unauthorized use is prohibited.
+                </p>
+              ),
+            },
+          ].map(({ id, title, content }) => (
+            <section
+              id={id}
+              key={id}
+              className="mb-16"
+              ref={(el) => (sectionsRef.current[id] = el)}
             >
-              Return Policy
-            </a>
-            .
-          </p>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Customer Responsibilities</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-3">
-            <li>
-              <strong>Account Information:</strong> If creating an account on
-              our website, you are responsible for maintaining the
-              confidentiality of your login information.
-            </li>
-            <li>
-              <strong>Prohibited Use:</strong> Customers must not misuse the
-              website or its services in ways that violate laws, regulations, or
-              the integrity of D&apos;Footprint.
-            </li>
-            <li>
-              <strong>Communication:</strong> You agree to provide accurate
-              contact information for order updates or support.
-            </li>
-          </ul>
-        </section>
-
-        <section className="mb-8">
-          <h2 className="text-xl font-semibold mb-4">Limitations of Liability</h2>
-          <ul className="list-disc list-inside text-gray-700 space-y-3">
-            <li>
-              Errors caused by inaccurate order details submitted by the
-              customer.
-            </li>
-            <li>
-              Delays or failures beyond our reasonable control, including
-              natural disasters or courier-related issues.
-            </li>
-            <li>
-              Any indirect, incidental, or consequential damages resulting from
-              the use of our products.
-            </li>
-          </ul>
-        </section>
-
-        <section>
-          <h2 className="text-xl font-semibold mb-4">Intellectual Property</h2>
-          <p className="text-gray-700">
-            All content, designs, and materials provided on the D&apos;Footprint
-            website are the exclusive property of D&apos;Footprint. Any unauthorized
-            use, reproduction, or distribution of this content is prohibited.
-          </p>
-        </section>
-      </div>
+              <h2 className="text-2xl font-bold mb-6 text-secondary dark:text-darkAccent">
+                {title}
+              </h2>
+              {content}
+            </section>
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
 
-export default TermsOfService;
+export default TermsAndConditions;

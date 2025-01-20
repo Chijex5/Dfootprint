@@ -13,7 +13,6 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
 
   const handleAddToCart = () => {
     if (!selectedSize || !selectedFit) {
-      // Show error message
       setMessage({
         type: "error",
         text: "Please select both size and fit before adding to the cart!",
@@ -27,36 +26,33 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
       fit: selectedFit,
     };
 
-    // Dispatch the product to the cart
     dispatch({ type: "ADD_TO_CART", payload: productWithSize });
 
-    // Show success message
     setMessage({
       type: "success",
       text: "Product added to cart successfully!",
     });
 
-    // Close the modal after a short delay
     setTimeout(() => {
       onClose();
       setMessage(null);
     }, 2000);
-    console.log(cart)
+    console.log(cart);
   };
 
   return isOpen ? (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white dark:bg-darkSecondary rounded-lg shadow-lg w-11/12 md:w-2/3 lg:w-1/2 overflow-hidden">
+      <div className="bg-white dark:bg-darkBackground rounded-xl shadow-lg w-11/12 md:w-2/3 lg:w-1/2 max-h-[90vh] overflow-y-auto transition-transform transform scale-100">
         {/* Header */}
-        <div className="flex justify-between items-center p-4 border-b">
-          <h3 className="text-lg font-semibold dark:text-white text-primary font-playfair">
+        <div className="flex justify-between items-center p-6 border-b">
+          <h3 className="text-xl font-bold dark:text-white text-primary font-playfair">
             {product.name}
           </h3>
           <button
             onClick={onClose}
-            className="text-primary dark:text-white dark:hover:text-red-700 text-2xl hover:text-red-600 transition"
+            className="text-primary dark:text-white hover:text-red-600 dark:hover:text-red-700 text-2xl transition"
           >
-             <FaTimes />
+            <FaTimes />
           </button>
         </div>
 
@@ -70,28 +66,23 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
         )}
 
         {/* Content */}
-        <div className="p-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Product Image */}
-          <div className="flex flex-col items-center justify-between">
-            <ProductImage
-              src={product.image}
-              alt={product.name}
-            />
-
-            <div>
-            <p className="text-accent dark:text-darkAccent font-medium mb-2">₦{product.price}</p>
-            <p className="text-sm dark:text-darkPrimary text-gray-700 mb-4">
+          <div className="flex flex-col items-center space-y-4">
+            <ProductImage src={product.image} alt={product.name} />
+            <p className="text-xl font-semibold text-primary dark:text-darkAccent">
+              ₦{product.price}
+            </p>
+            <p className="text-sm text-gray-600 dark:text-darkPrimary text-center">
               {product.description || "Handcrafted with the finest materials."}
             </p>
-            </div>
-            <div className="flex items-center space-x-2">
-                <p className="text-sm dark:text-darkAccent text-gray-700">SIZES IN GRAY ARE CURRENTLY UNAVAILABLE.</p>
-            </div>
-
+            <p className="text-xs italic text-gray-500 dark:text-darkAccent">
+              * Sizes in gray are currently unavailable.
+            </p>
           </div>
 
           {/* Product Details */}
-          <div>
+          <div className="space-y-6">
             {/* Size and Fit Selection */}
             <SizeSelector
               selectedSize={selectedSize}
@@ -104,7 +95,7 @@ const QuickViewModal = ({ product, isOpen, onClose }) => {
             {/* Add to Cart Button */}
             <button
               onClick={handleAddToCart}
-              className="w-full bg-primary dark:bg-darkAccent text-white py-2 rounded hover:bg-opacity-90 transition font-oswald"
+              className="w-full bg-primary dark:bg-darkAccent text-white py-3 rounded-lg hover:bg-opacity-90 transition text-lg font-semibold"
             >
               Add to Cart
             </button>

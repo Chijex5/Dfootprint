@@ -18,7 +18,7 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
   const [message, setMessage] = useState(null);
   console.log(product)
 
-  const categories = ["Platform", "Flats", "Hermes", "Birken Stock", "Palms", "Half Shoes"];
+  const categories = ["Platform", "Flats", "Hermes", "Birken Stock", "Palms", "Sandals", "Half Shoes"];
   const sizes = ["Female", "Male", "Neutral"];
 
   const handleInputChange = (e) => {
@@ -48,6 +48,24 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
   };
 
   const handleEditProduct = async () => {
+
+    if (!formData.name.trim()) {
+        setMessage({ type: "error", text: "Product name is required." });
+        return;
+      }
+      if (!formData.price || isNaN(Number(formData.price))) {
+        setMessage({ type: "error", text: "A valid price is required." });
+        return;
+      }
+      if (!formData.category) {
+        setMessage({ type: "error", text: "Please select a category." });
+        return;
+      }
+      if (!formData.size) {
+        setMessage({ type: "error", text: "Please select a gender category." });
+        return;
+      }
+
     const updatedProductData = {
       ...formData,
       disabledSizes: JSON.stringify(formData.disabledSizes), // Ensure the disabledSizes are sent as JSON
@@ -56,7 +74,7 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
     try {
       setIsLoading(true);
       await BackendSwitchingClient({
-        endpoint: `/api/product-list/${product.id}`,
+        endpoint: `/api/products/${product.id}`,
         method: "PUT",
         data: updatedProductData,
         headers: {
@@ -65,7 +83,7 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
       });
   
       const response = await BackendSwitchingClient({
-        endpoint: "/api/products",
+        endpoint: "/api/product-list",
         method: "GET",
       });
       setProducts(response.data);

@@ -13,12 +13,12 @@ import { FaInstagram, FaTwitter, FaTiktok, FaWhatsapp, FaSnapchat, FaArrowUp } f
 
 const images = [
   "/1.jpeg",
-  "/2.jpeg",
-  "/3.jpeg",
-  "/4.jpeg",
-  "/5.jpeg",
-  "/6.jpeg",
-  "/7.jpeg",
+  "/41.jpg",
+  "/42.jpg",
+  "/43.jpg",
+  "/48.jpg",
+  "/49.jpg",
+  "/50.jpg",
   "/8.jpeg",
   "/9.jpeg",
   "/10.jpeg",
@@ -224,6 +224,14 @@ useEffect(() => {
               <p className="text-lg md:text-xl italic text-center font-light">
               &quot;Top-notch quality, will buy again.&quot; - Michael Lee
               </p>
+            </div>
+            <div className="mt-10">
+              <Link
+                href="/products"
+                className="px-6 py-3 bg-primary dark:bg-darkSecondary text-white font-semibold rounded-lg shadow-lg hover:bg-accent transition-all duration-300"
+              >
+                Shop Now
+              </Link>
             </div>
           </div>
         </div>
