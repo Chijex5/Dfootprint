@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ProductImage from "./Image";
 import Loader from "@/app/components/Loader";
+import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 import ErrorPage from "@/app/components/ErrorPage";
 
 const ProductGrid = ({ filters, onQuickView, onClearFilters }) => {
@@ -16,7 +16,10 @@ const [isRetrying, setIsRetrying] = useState(false);
       setIsRetrying(true);
       setError("");
       setLoading(true);
-      const response = await axios.get("https://dfootprint-backend.onrender.com/api/product-list");
+      const response = await await BackendSwitchingClient({
+        endpoint: "/api/product-list",
+        method: "GET",
+      });
       setProducts(response.data);
       setLoading(false);
       setIsRetrying(false);

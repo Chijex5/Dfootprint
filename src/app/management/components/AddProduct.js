@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import axios from "axios";
 import ButtonLoader from "@/app/components/ButtonLoader";
 import MessageModal from "@/app/components/MessageComponent";
 import { FaTimes } from "react-icons/fa";
+import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 
 const AddProductModal = ({ onClose, setProducts }) => {
   const [formData, setFormData] = useState({
@@ -65,7 +65,10 @@ const AddProductModal = ({ onClose, setProducts }) => {
 
     try {
       setIsLoading(true)
-      const response = await axios.post("https://dfootprint-backend.onrender.com/api/products/new", productData, {
+      const response = await BackendSwitchingClient({
+        endpoint: "/api/products/new",
+        method: "POST",
+        data: productData,
         headers: {
           "Content-Type": "multipart/form-data", // Required for file uploads
         },

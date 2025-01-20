@@ -4,7 +4,7 @@ import AddProductModal from "./components/AddProduct";
 import ManageProductsModal from "./components/ManageProduct";
 import ErrorPage from "../components/ErrorPage";
 import Loader from "../components/Loader";
-import axios from "axios";
+import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 
 const ProductManagementPage = () => {
   const [products, setProducts] = useState([]);
@@ -19,9 +19,11 @@ const ProductManagementPage = () => {
       setIsRetrying(true);
       setError("");
       setLoading(true);
-      const response = await axios.get("https://dfootprint-backend.onrender.com/api/product-list");
+      const response = await await BackendSwitchingClient({
+        endpoint: "/api/product-list",
+        method: "GET",
+      });
       setProducts(response.data);
-      console.log(products)
       setLoading(false);
       setIsRetrying(false);
     } catch (err) {

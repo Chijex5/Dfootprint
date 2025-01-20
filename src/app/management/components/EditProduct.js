@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ButtonLoader from "@/app/components/ButtonLoader";
 import MessageModal from "@/app/components/MessageComponent";
 import ProductImage from "@/app/products/components/Image";
+import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 
 const EditProductModal = ({ product, onClose, setProducts }) => {
     const [formData, setFormData] = useState({
@@ -55,14 +55,19 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
 
     try {
       setIsLoading(true);
-      await axios.put(
-        `https://dfootprint-backend.onrender.com/api/products/${product.id}`,
-        updatedProductData
-      );
-      console.log("Updated product:", updatedProductData);
-
-      // Update product list with the updated product
-      const response = await axios.get("https://dfootprint-backend.onrender.com/api/product-list");
+      await BackendSwitchingClient({
+        endpoint: `/api/product-list/${product.id}`,
+        method: "PUT",
+        data: updatedProductData,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+  
+      const response = await BackendSwitchingClient({
+        endpoint: "/api/products",
+        method: "GET",
+      });
       setProducts(response.data);
       setMessage({ type: "success", text: "Product updated successfully." });
       setTimeout(() => {
