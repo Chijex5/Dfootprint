@@ -3,6 +3,7 @@ import ButtonLoader from "@/app/components/ButtonLoader";
 import MessageModal from "@/app/components/MessageComponent";
 import ProductImage from "@/app/products/components/Image";
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
+import { FaTimes } from "react-icons/fa";
 
 const EditProductModal = ({ product, onClose, setProducts }) => {
     const [formData, setFormData] = useState({
@@ -30,7 +31,7 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
     if (e.key === "Enter" || e.key === ",") {
       e.preventDefault();
       const size = parseInt(e.target.value.trim(), 10);
-      if (!isNaN(size) && size >= 21 && size <= 50 && !formData.disabledSizes.includes(size)) {
+      if (!isNaN(size) && size >= 36 && size <= 46 && !formData.disabledSizes.includes(size)) {
         setFormData({
           ...formData,
           disabledSizes: [...formData.disabledSizes, size],
@@ -178,9 +179,9 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
                     <button
                         type="button"
                         onClick={() => removeDisabledSize(size)}
-                        className="text-red-500"
+                        className="text-white hover:text-red-500 dark:text-darkAccent dark:hover:text-red-500"
                     >
-                        &times;
+                        <FaTimes />
                     </button>
                     </span>
                 ))}

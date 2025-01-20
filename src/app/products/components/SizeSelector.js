@@ -11,9 +11,9 @@ const SizeSelector = ({
   const [infoMessage, setInfoMessage] = useState(null);
 
   const sizeRanges = {
-    "21-30": [21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-    "31-40": [31, 32, 33, 34, 35, 36, 37, 38, 39, 40],
-    "41-50": [41, 42, 43, 44, 45, 46, 47, 48, 49, 50],
+
+    "36-40": [36, 37, 38, 39, 40],
+    "41-56": [41, 42, 43, 44, 45, 46],
   };
 
   const fits = ["Small", "Normal", "Big"];
