@@ -1,7 +1,6 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import DarkModeToggle from "../components/DarkMode";
-import Loader from "../components/Loader";
 import HeroShopNowPage from "./components/HeroSection";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
