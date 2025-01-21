@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 import AOS from "aos";
 import "swiper/css";
 import "swiper/css/navigation";
@@ -157,9 +158,12 @@ function ModernGallery() {
 
       {/* CTA */}
       <div className="mt-12 relative z-10" data-aos="fade-up" data-aos-delay="500">
-        <button className="px-6 py-3 bg-primary dark:hover:bg-darkAccent text-white text-lg rounded-lg shadow-lg dark:bg-darkSecondary dark:hover:bg-darkSecondary hover:bg-secondary transition-colors duration-300">
+        <Link 
+          className="px-6 py-3 bg-primary dark:hover:bg-darkAccent text-white text-lg rounded-lg shadow-lg dark:bg-darkSecondary dark:hover:bg-darkSecondary hover:bg-secondary transition-colors duration-300"
+          href="/custom"
+          >
           Upload Your Design
-        </button>
+        </Link>
       </div>
     </section>
   );

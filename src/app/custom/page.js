@@ -1,29 +1,37 @@
-"use client";
+"use client"
 import React, { useState } from "react";
+import ImageUploader from "./components/ImageUploader";
+import MaterialSelector from "./components/MaterialSelector";
+import SizeSelector from "./components/SizeSelector";
+import CostSummary from "./components/CostSummary";
 import DarkModeToggle from "../components/DarkMode";
-import HeroShopNowPage from "./components/HeroSection";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import Holder from "./components/Holder";
 
+const CustomOrdersPage = () => {
+  const [formData, setFormData] = useState({
+    designFiles: [],
+    material: "",
+    color: "",
+    sizes: [],
+    fit: "",
+    deliveryDate: "",
+    priorityOrder: false,
+  });
+  const [estimatedCost, setEstimatedCost] = useState(0);
 
-const ShopNowPage = () => {
-  const router = useRouter();
-
-
-  const handleSectionClick = (sectionName) => {
-    if (sectionName === "Custom Design"){
-      router.push("/custom");
-    }else if (sectionName === "Browse Collection"){
-      router.push("/products/browse"); 
-    }
+  const handleFormChange = (field, value) => {
+    setFormData((prev) => ({ ...prev, [field]: value }));
+    // Update cost calculation logic here if necessary
   };
 
-
+  const handleSubmit = () => {
+    console.log("Submitting custom order:", formData);
+    // Placeholder for backend API call logic
+  };
 
   return (
-    <div className="bg-background dark:bg-darkBackground min-h-screen p-4">
-      <header className={`fixed top-0 left-0 w-full z-50 bg-white dark:bg-darkSecondary dark:text-white shadow-lg transition-all duration-500 ease-in-out transform bg-opacity-90`}>
+    <div className="min-h-screen bg-background dark:bg-darkBackground text-secondary dark:text-darkAccent p-4">
+        <header className={`fixed top-0 left-0 w-full z-50 bg-white dark:bg-darkSecondary dark:text-white shadow-lg transition-all duration-500 ease-in-out transform bg-opacity-90`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           {/* Replacing text with SVG logo */}
           <Link href="/" className="flex items-center dark:text-white text-primary hover:text-accent">
@@ -44,11 +52,86 @@ const ShopNowPage = () => {
           </nav>
         </div>
       </header>
+      <div className="text-center py-8 mt-[70px]">
+        <h1 className="text-4xl font-bold text-primary dark:text-white">Custom Orders</h1>
+        <p className="mt-2 text-lg">Your vision, handcrafted with care.</p>
+      </div>
 
-      <HeroShopNowPage onSectionClick={handleSectionClick} />
-        
+      <main className="max-w-4xl mx-auto space-y-8">
+        {/* Section 1: Design Upload */}
+        <section className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold text-primary dark:text-white mb-4">Upload Your Design</h2>
+          <ImageUploader
+            designFiles={formData.designFiles}
+            onChange={(files) => handleFormChange("designFiles", files)}
+          />
+        </section>
+
+        {/* Section 2: Material and Color */}
+        <section className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold text-primary dark:text-white mb-4">Select Materials and Colors</h2>
+          <MaterialSelector
+            selectedMaterial={formData.material}
+            selectedColor={formData.color}
+            onMaterialChange={(material) => handleFormChange("material", material)}
+            onColorChange={(color) => handleFormChange("color", color)}
+          />
+        </section>
+
+        {/* Section 3: Sizes and Fit */}
+        <section className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold text-primary dark:text-white mb-4">Select Sizes and Fit</h2>
+          <SizeSelector
+            selectedSizes={formData.sizes}
+            selectedFit={formData.fit}
+            onSizeChange={(sizes) => handleFormChange("sizes", sizes)}
+            onFitChange={(fit) => handleFormChange("fit", fit)}
+            disabledSizes={[]} // Adjust logic for disabled sizes if required
+          />
+        </section>
+
+        {/* Section 4: Delivery and Deadlines */}
+        <section className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h2 className="text-2xl font-semibold text-primary dark:text-white mb-4">Delivery and Deadlines</h2>
+          <div>
+            <label className="block text-sm font-medium mb-2">Preferred Delivery Date</label>
+            <input
+              type="date"
+              className="w-full mt-2 p-2 border rounded-md"
+              value={formData.deliveryDate}
+              onChange={(e) => handleFormChange("deliveryDate", e.target.value)}
+            />
+            <div className="mt-2">
+              <label className="flex items-center">
+                <input
+                  type="checkbox"
+                  checked={formData.priorityOrder}
+                  onChange={(e) => handleFormChange("priorityOrder", e.target.checked)}
+                  className="mr-2"
+                />
+                Expedite my order (additional cost applies)
+              </label>
+            </div>
+          </div>
+        </section>
+
+        {/* Summary Section */}
+        <section className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <CostSummary estimatedCost={estimatedCost} formData={formData} />
+        </section>
+
+        {/* Submit Button */}
+        <div className="text-center">
+          <button
+            onClick={handleSubmit}
+            className="w-full bg-primary text-white py-3 rounded-lg hover:bg-secondary transition"
+          >
+            Submit Custom Order
+          </button>
+        </div>
+      </main>
     </div>
   );
-}
+};
 
-export default ShopNowPage;
+export default CustomOrdersPage;

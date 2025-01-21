@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import ProductImage from "./Image";
-import Loader from "@/app/components/Loader";
 import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 import ErrorPage from "@/app/components/ErrorPage";
@@ -47,7 +46,13 @@ const [isRetrying, setIsRetrying] = useState(false);
 
   if (loading) {
     return (
-      <Loader />
+      <div className="flex items-center justify-center h-screen bg-white dark:bg-darkBackground">
+            <DotLottieReact
+              src="../animation.lottie"
+              loop
+              autoplay
+            />
+        </div>
     );
   }
 

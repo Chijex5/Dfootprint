@@ -190,13 +190,20 @@ useEffect(() => {
           <p className="mt-2 text-lg md:text-xl font-playfair animate-fadeInSlow"> {/* Adjust margin and font size */}
             Perfect Fit, Perfect Price
           </p>
-          <Link 
-            
-            href="/products" 
-            className="mt-4 inline-block px-4 py-2 md:px-6 md:py-3 bg-transparent border-2 border-primary text-accent font-semibold rounded-lg shadow-lg hover:bg-primary dark:border-darkAccent dark:hover:bg-darkAccent dark:text-darkPrimary hover:text-background transition-all duration-300"
-          >
-            Shop Now
-          </Link>
+          <div className="flex flex-col md:flex-row justify-center items-center gap-4 mt-6">
+            <Link
+              href="/products/browse"
+              className="px-4 py-2 md:px-6 md:py-3 bg-transparent border-2 border-primary text-accent font-semibold rounded-lg shadow-lg hover:bg-primary dark:border-darkAccent dark:hover:bg-darkAccent dark:text-darkPrimary hover:text-background transition-all duration-300"
+            >
+              Shop Now
+            </Link>
+            <Link
+              href="/custom"
+              className="px-4 py-2 md:px-6 md:py-3 bg-accent text-white font-semibold rounded-lg shadow-lg hover:bg-secondary dark:bg-darkAccent dark:hover:bg-darkAccent transition-all duration-300"
+            >
+              Custom Order
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -227,7 +234,7 @@ useEffect(() => {
             </div>
             <div className="mt-10">
               <Link
-                href="/products"
+                href="/products/browse"
                 className="px-6 py-3 bg-primary dark:bg-darkSecondary text-white font-semibold rounded-lg shadow-lg hover:bg-accent transition-all duration-300"
               >
                 Shop Now
@@ -343,6 +350,14 @@ useEffect(() => {
                 </p>
               </div>
             </div>
+          </div>
+          <div className="mt-14">
+            <Link
+              href="/products/browse"
+              className="px-6 py-3 bg-primary dark:bg-darkSecondary text-white font-semibold rounded-lg shadow-lg hover:bg-accent transition-all duration-300"
+            >
+              Shop Now
+            </Link>
           </div>
         </div>
       </section>
