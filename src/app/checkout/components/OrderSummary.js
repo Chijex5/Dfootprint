@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { FiCopy, FiCheck } from "react-icons/fi";
 
 const OrderSummary = ({ orderDetails, onConfirm, onDownloadInvoice, loading, onError, OnRetry }) => {
   const {
@@ -13,12 +14,19 @@ const OrderSummary = ({ orderDetails, onConfirm, onDownloadInvoice, loading, onE
   } = orderDetails;
 
   const [orderConfirmed, setOrderConfirmed] = useState(false);
+  const [copied, setCopied] = useState(false);
 
   const handleConfirmOrder = () => {
     onConfirm();
     setOrderConfirmed(true);
   };
-  console.log(!orderId)
+  const handleCopy = () => {
+    if (orderId && !loading) {
+      navigator.clipboard.writeText(orderId); // Copy to clipboard
+      setCopied(true); // Show the tick mark
+      setTimeout(() => setCopied(false), 2000); // Reset the state after 2 seconds
+    }
+  };
 
   return (
     <div className="space-y-6">
@@ -77,9 +85,21 @@ const OrderSummary = ({ orderDetails, onConfirm, onDownloadInvoice, loading, onE
             Keep this order ID for tracking purposes:
           </p>
           {!onError && (
-          <p className="text-lg font-bold text-primary dark:text-darkAccent mt-2">
-            {!loading? orderId : "Generating..."}
-          </p>
+            <span className="text-lg font-bold text-primary dark:text-darkAccent mt-2">
+              {!loading? orderId : "Generating..."}
+            </span>
+          )}
+          {!loading && orderId && (
+            <button
+              onClick={handleCopy}
+              className="flex items-center justify-center w-8 h-8 bg-gray-200 dark:bg-darkSecondary rounded-full hover:bg-gray-300 dark:hover:bg-darkAccent transition"
+            >
+              {copied ? (
+                <FiCheck className="text-green-500" size={16} />
+              ) : (
+                <FiCopy className="text-primary dark:text-darkPrimary" size={16} />
+              )}
+            </button>
           )}
           {onError && (
             <p 

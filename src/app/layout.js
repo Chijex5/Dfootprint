@@ -36,6 +36,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         {/* Add a script to set dark mode before the app renders */}
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'></link>
         <script
           dangerouslySetInnerHTML={{
             __html: `

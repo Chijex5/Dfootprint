@@ -24,6 +24,8 @@ const CheckoutPage = () => {
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
+    phone: "",
+    email: "",
     contact: "",
     state: "",
     busStop: "",
@@ -650,6 +652,7 @@ const CheckoutPage = () => {
       tax: parseFloat(tax.toFixed(2)),
       total: parseFloat(total.toFixed(2)),
     };
+
   
     try {
       const response = await BackendSwitchingClient({
@@ -687,15 +690,24 @@ const CheckoutPage = () => {
 
   const handleConfirmOrder = async () => {
     setLoading(true);
+    const cartItems = cart.items.map((item) => ({
+      name: item.name,
+      size: item.size,
+      fit: item.fit,
+      unit_price: item.price,
+      total: item.price * item.quantity,
+      quantity: item.quantity,
+    }));
   
     try {
       const res = await BackendSwitchingClient({
         endpoint: "/api/orders/metadata",
         method: "POST",
         data: {
-          status: "Pending",
-          date_created: new Date().toISOString(),
-          estimated_time: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days later
+          name: formData.name,
+          email: formData.email,
+          number: `+234${formData.contact}`,
+          items: cartItems,
         },
         headers: { "Content-Type": "application/json" },
         timeout: 15000, // Adjust timeout if necessary
@@ -718,6 +730,7 @@ const CheckoutPage = () => {
         text: err.response?.data?.error || "Something went wrong",
       });
       setError(true);
+      console.log(err);
     } finally {
       setLoading(false);
     }
