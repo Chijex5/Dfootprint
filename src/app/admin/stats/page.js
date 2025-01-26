@@ -1,131 +1,80 @@
 'use client';
-
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import {jwtDecode} from 'jwt-decode';
-import Loader from '../products/Loader'; // Import your Loader component
+import React from 'react';
+import Sidebar from '../components/Sidebar';
+import Header from '../components/Header';
 
 const StatsPage = () => {
-  const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [stats, setStats] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const products = [
+    { name: "Product A", sales: 120, stock: 80 },
+    { name: "Product B", sales: 200, stock: 50 },
+    { name: "Product C", sales: 150, stock: 70 },
+    { name: "Product D", sales: 80, stock: 100 },
+    { name: "Product E", sales: 50, stock: 30 },
+  ];
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      router.push('/admin/login');
-    } else {
-      try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Math.floor(Date.now() / 1000);
-        
-        if (decodedToken.exp && decodedToken.exp < currentTime) {
-          localStorage.removeItem('token');
-          router.push('/admin/login');
-        } else {
-          setEmail(decodedToken.sub);
-          setStats(
-            {
-                "totalProducts": 100,
-                "totalSales": 15000,
-                "highestRequestedItem": {
-                  "name": "Product A",
-                  "requests": 200
-                },
-                "lowestRequestedItem": {
-                  "name": "Product B",
-                  "requests": 10
-                }
-              }
-              
-          )
-        }
-      } catch (error) {
-        console.error('Invalid token:', error);
-        localStorage.removeItem('token');
-        router.push('/admin/login');
-      }
-    }
-  }, [router]);
+  const totalProducts = products.length;
+  const totalSold = products.reduce((sum, product) => sum + product.sales, 0);
+  const totalStock = products.reduce((sum, product) => sum + product.stock, 0);
+  const bestSellingProduct = products.reduce((prev, current) =>
+    prev.sales > current.sales ? prev : current
+  );
+
+
+  
 
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-      <aside className="bg-background shadow text-secondary w-64 p-6 flex flex-col h-screen">
-        <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
-        <nav className="flex-grow space-y-4">
-            <button
-            onClick={() => router.push('/admin/dashboard')}
-                className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-            >
-                Dashboard
-            </button>
-            <button
-            onClick={() => router.push('/admin/products')}
-            className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-            >
-            Manage Products
-            </button>
-            <button
-            onClick={() => router.push('/admin/orders')}
-            className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-            >
-            View Orders
-            </button>
-            <button
-            onClick={() => router.push('/admin/orders/pending')}
-            className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-            >
-            Pending Orders
-            </button>
-            <button
-            onClick={() => router.push('/admin/stats')}
-            className="w-full text-left py-2 px-4 bg-primary text-white rounded hover:bg-accent transition"
-            >
-            Item Stats
-            </button>
-        </nav>
-        <button
-            onClick={() => router.push('/admin/settings')} // Adjust the route as needed
-            className="mt-4 w-full py-2 px-4 bg-primary rounded hover:bg-accent transition"
-        >
-            Settings
-        </button>
-        </aside>
+    <div className="bg-background dark:bg-darkBackground text-primary dark:text-darkPrimary min-h-screen flex ">
+      <Sidebar onCurrent="statistics" />
+      <div className='flex flex-1 flex-col'>
+      <Header onName="Statistics" />
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 p-6 mb-6 ">
+        <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Total Products</h3>
+          <p className="text-3xl font-bold">{totalProducts}</p>
+        </div>
 
-      <div className="flex-1 flex flex-col">
-        <header className="bg-white shadow p-6 flex justify-between items-center">
-          <h1 className="text-3xl font-bold">Statistics</h1>
-          <div className="text-gray-600">Logged in as: {email}</div>
-        </header>
+        <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Total Sold</h3>
+          <p className="text-3xl font-bold">{totalSold}</p>
+        </div>
 
-        <main className="p-6">
-          {loading ? (
-            <Loader />
-          ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h2 className="text-xl font-semibold">Total Products</h2>
-                <p className="text-3xl font-bold">{stats.totalProducts}</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h2 className="text-xl font-semibold">Total Sales</h2>
-                <p className="text-3xl font-bold">${stats.totalSales}</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h2 className="text-xl font-semibold">Highest Requested Item</h2>
-                <p className="text-lg">{stats.highestRequestedItem.name}</p>
-                <p className="text-2xl font-bold">{stats.highestRequestedItem.requests} requests</p>
-              </div>
-              <div className="bg-white p-4 rounded-lg shadow">
-                <h2 className="text-xl font-semibold">Lowest Requested Item</h2>
-                <p className="text-lg">{stats.lowestRequestedItem.name}</p>
-                <p className="text-2xl font-bold">{stats.lowestRequestedItem.requests} requests</p>
-              </div>
-            </div>
-          )}
-        </main>
+        <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Total Stock</h3>
+          <p className="text-3xl font-bold">{totalStock}</p>
+        </div>
+
+        <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-2">Best Seller</h3>
+          <p className="text-xl font-medium">{bestSellingProduct.name}</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400">
+            Sales: {bestSellingProduct.sales}
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 gap-6 p-6">
+        <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-md">
+          <h3 className="text-lg font-semibold mb-4">Product Details</h3>
+          <table className="w-full border-collapse">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left p-2">Product</th>
+                <th className="text-left p-2">Sales</th>
+                <th className="text-left p-2">Stock</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((product, index) => (
+                <tr key={index} className="border-b">
+                  <td className="p-2">{product.name}</td>
+                  <td className="p-2">{product.sales}</td>
+                  <td className="p-2">{product.stock}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        </div>
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ import AddProductModal from "./components/AddProduct";
 import ManageProductsModal from "./components/ManageProduct";
 import ErrorPage from "../components/ErrorPage";
 import Loader from "../components/Loader";
+import ProductManagement from "./components/OrderManagement";
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 
 const ProductManagementPage = () => {
@@ -13,6 +14,7 @@ const ProductManagementPage = () => {
   const [loading, setLoading] = useState(true); // State for loading indicator
   const [error, setError] = useState(null); // State for error handling
   const [isRetrying, setIsRetrying] = useState(false);
+  const [showOrderManagement, setShowOrderManagement] = useState(false);
 
   const fetchProducts = async () => {
     try {
@@ -31,6 +33,10 @@ const ProductManagementPage = () => {
       setLoading(false);
       setIsRetrying(false);
     }
+  };
+
+  const handleOpenOrderManagement = () => {
+    setShowOrderManagement(true);
   };
 
   const manageProductOpen = () => {
@@ -58,6 +64,12 @@ const ProductManagementPage = () => {
     );
   }
 
+  if(showOrderManagement) {
+    return (
+      <ProductManagement onClose={() => setShowOrderManagement(false)} />
+    );
+  }
+
   return (
     <div className="max-w-7xl mx-auto py-12 px-6 bg:background dark:bg-darkBackground text-secondary dark:text-darkAccent min-h-screen min-w-full">
       <h1 className="text-3xl font-bold mb-6">Product Management</h1>
@@ -78,6 +90,13 @@ const ProductManagementPage = () => {
         >
           <h2 className="text-2xl font-semibold mb-2">Manage Products</h2>
           <p className="text-sm text-white/80">Search and update existing products</p>
+        </div>
+        <div
+          className="bg-darkPrimary text-white p-6 rounded-lg shadow-md flex flex-col items-center justify-center cursor-pointer hover:bg-opacity-90 transition"
+          onClick={handleOpenOrderManagement}
+        >
+          <h2 className="text-2xl font-semibold mb-2">Order Management</h2>
+          <p className="text-sm text-white/80">View and update customer&apos;s orders</p>
         </div>
       </div>
 

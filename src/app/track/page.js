@@ -26,7 +26,7 @@ const OrderTrackingPage = () => {
 
 
   const handleSubmit = async () => {
-    if (!orderId || orderId.length !== 12 || !orderId.startsWith("ORD-")) {
+    if (!orderId || !orderId.startsWith("ORD-")) {
       setError("Please enter a valid Order ID.");
       return;
     }
@@ -56,7 +56,7 @@ const OrderTrackingPage = () => {
   };
 
   const renderOrderStatus = (status) => {
-    const statuses = ["Pending", "Confirmed", "Production", "Packaging", "Delivery", "Completed"];
+    const statuses = ["Pending", "Confirmed", "Production", "Packaging", "Delivered", "Completed"];
     return (
       <div className="flex justify-between items-center mt-4">
         {statuses.map((stage, index) => (
@@ -143,6 +143,9 @@ const OrderTrackingPage = () => {
               </p>
               <p className="text-sm text-secondary dark:text-darkPrimary">
                 <strong>Quantity:</strong> {orderData.tracking_data[0]?.quantity || 0}
+              </p>
+              <p className="text-sm text-secondary dark:text-darkPrimary">
+                <strong>Status:</strong> {orderData.status}
               </p>
             </div>
 

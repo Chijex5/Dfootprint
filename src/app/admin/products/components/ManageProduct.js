@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import EditProductModal from "./EditProduct";
 import MessageModal from "@/app/components/MessageComponent";
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ManageProductsModal = ({ onClose, products, setProducts }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -29,9 +31,11 @@ const ManageProductsModal = ({ onClose, products, setProducts }) => {
           prevProducts.filter((product) => product.id !== productId)
         );
         setMessage({ type: "success", text: "Product deleted successfully." });
+        toast.success("Product deleted successfully.");
       }
     } catch (error) {
       setMessage({ type: "error", text: "Failed to delete product. Please try again." });
+      toast.error(error.response?.data?.message || "Failed to delete product.");
     }finally{
         setIsLoading(false);
     }
@@ -42,18 +46,12 @@ const ManageProductsModal = ({ onClose, products, setProducts }) => {
   };
 
   return (
-    <div className="inset-0 flex items-center justify-center">
-      <div className="bg-background dark:bg-darkBackground p-6 rounded-lg shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div className="py-12 px-6 bg-background dark:bg-darkBackground flex items-center justify-center">
+      <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-lg max-w-3xl w-full">
         <h2 className="text-primary dark:text-darkAccent text-2xl font-semibold mb-4">
           Manage Products
         </h2>
-        {message && (
-          <MessageModal
-            messageType={message.type}
-            messageText={message.text}
-            onClose={() => setMessage(null)}
-          />
-        )}
+        <ToastContainer />
         {products.length === 0 ? (
           <div className="text-center p-6">
             <p className="text-lg text-accent dark:text-darkPrimary font-medium mb-4">
@@ -111,7 +109,7 @@ const ManageProductsModal = ({ onClose, products, setProducts }) => {
                         setSelectedProduct(product);
                         setIsEditing(true);
                       }}
-                      className="bg-primary dark:bg-darkSecondary text-white py-1 px-3 rounded-lg hover:bg-secondary transition"
+                      className="bg-primary dark:bg-darkAccent text-white py-1 px-3 rounded-lg hover:bg-secondary transition"
                     >
                       Edit
                     </button>
@@ -123,7 +121,7 @@ const ManageProductsModal = ({ onClose, products, setProducts }) => {
         )}
         <button
           onClick={onClose}
-          className="mt-6 bg-gray-400 dark:bg-darkSecondary text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition"
+          className="mt-6 bg-primary dark:bg-darkAccent text-white py-2 px-4 rounded-lg hover:bg-opacity-90 transition"
         >
           Close
         </button>

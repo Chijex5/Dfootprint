@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ButtonLoader from "@/app/components/ButtonLoader";
 import MessageModal from "@/app/components/MessageComponent";
 import { FaTimes } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 
 const AddProductModal = ({ onClose, setProducts }) => {
@@ -56,23 +58,23 @@ const AddProductModal = ({ onClose, setProducts }) => {
   const handleAddProduct = async () => {
 
     if (!formData.name.trim()) {
-        setMessage({ type: "error", text: "Product name is required." });
+        toast.error("Product name is required.");
         return;
       }
       if (!formData.price || isNaN(Number(formData.price))) {
-        setMessage({ type: "error", text: "A valid price is required." });
+        toast.error("A valid price is required.");
         return;
       }
       if (!formData.category) {
-        setMessage({ type: "error", text: "Please select a category." });
+        toast.error("Please select a category.");
         return;
       }
       if (!formData.size) {
-        setMessage({ type: "error", text: "Please select a gender category." });
+        toast.error("Please select a gender category.");
         return;
       }
       if (!formData.image) {
-        setMessage({ type: "error", text: "Please upload an image." });
+        toast.error("Please upload an image.");
         return;
       }
 
@@ -98,28 +100,22 @@ const AddProductModal = ({ onClose, setProducts }) => {
 
       // Add the new product to the product list
       setProducts((prevProducts) => [...prevProducts, response.data]);
-      setMessage({ type: "success", text: "Product added successfully." });
+      toast.success("Product added successfully.");
       setTimeout(() => {
         onClose();
       }, 3000);
     } catch (error) {
-      setMessage({ type: "error", text: "Failed to add product. Please try again." });
+      toast.error(error.response?.data?.message || "Failed to add product. Please try again.");
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className=" flex items-center justify-center">
-      <div className="bg-background dark:bg-darkBackground p-6 rounded-lg shadow-lg max-w-3xl w-full max-h-[90vh] overflow-y-auto">
+    <div className=" flex items-center justify-center bg-background dark:bg-darkBackground px-6 py-12">
+      <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow-lg max-w-3xl w-full">
         <h2 className="text-2xl font-semibold text-primary dark:text-darkAccent mb-4">Add New Product</h2>
-        {message && (
-          <MessageModal
-            messageType={message.type}
-            messageText={message.text}
-            onClose={() => setMessage(null)}
-          />
-        )}
+        <ToastContainer />
         <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input
             type="text"

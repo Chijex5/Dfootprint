@@ -2,8 +2,10 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Header from '../components/Header';
 import { jwtDecode } from 'jwt-decode'; // Fix: remove the curly braces from jwtDecode import
 import DashboardOverview from './DashboardOverview'
+import Sidebar from '../components/Sidebar';
 
 export default function AdminDashboard() {
   const router = useRouter();
@@ -11,30 +13,6 @@ export default function AdminDashboard() {
   const [isMobile, setIsMobile] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  useEffect(() => {
-    const token = localStorage.getItem('token');
-    
-    if (!token) {
-      router.push('/admin/login');
-    } else {
-      try {
-        const decodedToken = jwtDecode(token);
-        const currentTime = Math.floor(Date.now() / 1000);
-        
-        if (decodedToken.exp && decodedToken.exp < currentTime) {
-          localStorage.removeItem('token');
-          router.push('/admin/login');
-        } else {
-          // Set the user's email in the header
-          setEmail(decodedToken.sub);
-        }
-      } catch (error) {
-        console.error('Invalid token:', error);
-        localStorage.removeItem('token');
-        router.push('/admin/login');
-      }
-    }
-  }, [router]);
 
   useEffect(() => {
     const checkMobile = () => {
@@ -59,58 +37,18 @@ export default function AdminDashboard() {
 
   if(!isMobile) {
     return (
-        <div className="min-h-screen bg-gray-100 flex">
-      {/* Side Panel */}
-      <aside className="bg-background shadow text-secondary w-64 p-6 flex flex-col h-screen">
-            <h2 className="text-2xl font-bold mb-6">Admin Panel</h2>
-            <nav className="flex-grow space-y-4">
-                <button
-                onClick={() => router.push('/admin/dashboard')}
-                    className="w-full text-left py-2 px-4 bg-primary text-white rounded hover:bg-accent transition"
-                >
-                    Dashboard
-                </button>
-                <button
-                onClick={() => router.push('/admin/products')}
-                className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-                >
-                Manage Products
-                </button>
-                <button
-                onClick={() => router.push('/admin/orders')}
-                className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-                >
-                View Orders
-                </button>
-                <button
-                onClick={() => router.push('/admin/orders/pending')}
-                className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-                >
-                Pending Orders
-                </button>
-                <button
-                onClick={() => router.push('/admin/stats')}
-                className="w-full text-left py-2 px-4 bg-background text-secondary rounded hover:bg-accent transition"
-                >
-                Item Stats
-                </button>
-            </nav>
-            <button
-                onClick={() => router.push('/admin/settings')} // Adjust the route as needed
-                className="mt-4 w-full py-2 px-4 bg-primary rounded hover:bg-accent transition"
-            >
-                Settings
-            </button>
-        </aside>
+        <div className="bg-backgroud dark:bg-darkBackground flex">
+        <Sidebar 
+          onCurrent={'dashboard'}
+        />
+      
     
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Header */}
-        <header className="bg-white shadow p-6 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-primary">Admin Dashboard</h1>
-          <div className="text-secondary">Logged in as: {email}</div>
-        </header>
-    
+        <Header
+        onName={'Admin Dashboard'}
+        />
         {/* Main Section */}
         <main className="p-6">
           <h2 className="text-2xl font-semibold mb-4 text-primary">Welcome to your dashboard!</h2>
@@ -123,7 +61,7 @@ export default function AdminDashboard() {
     }
     if (isMobile) {
         return (
-          <div className="min-h-screen bg-gray-100 flex flex-col">
+          <div className="dark:bg-darkSecondary flex flex-col">
             {/* Header with Hamburger Menu */}
             <header className="bg-white shadow flex items-center justify-between p-4">
             <h1 className="text-2xl font-bold">Dashboard</h1>
@@ -185,17 +123,17 @@ export default function AdminDashboard() {
               <h2 className="text-xl font-semibold mb-4 text-primary">Welcome to your dashboard!</h2>
               <div className="mx-4 p-4 md:mx-10 md:p-8">
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-                    <div className="bg-background p-6 rounded-lg shadow">
-                    <h2 className="text-xl font-bold text-primary">Total Products</h2>
-                    <p className="text-3xl mt-2 text-secondary">56</p>
+                    <div className="bg-white dark:bg-darkSecondary p-6 rounded-lg shadow">
+                    <h2 className="text-xl font-bold text-primary dark:text-darkPrimary">Total Products</h2>
+                    <p className="text-3xl mt-2 text-secondary dark:text-darkAccent">56</p>
                     </div>
                     <div className="bg-background p-6 rounded-lg shadow">
-                    <h2 className="text-xl font-bold text-primary">Pending Orders</h2>
-                    <p className="text-3xl mt-2 text-secondary">12</p>
+                    <h2 className="text-xl font-bold text-primary dark:text-darkPrimary">Pending Orders</h2>
+                    <p className="text-3xl mt-2 text-secondary dark:text-darkAccent">12</p>
                     </div>
                     <div className="bg-background p-6 rounded-lg shadow">
-                    <h2 className="text-xl font-bold text-primary">Highest Requested Item</h2>
-                    <p className="text-2xl mt-2 text-secondary">Product A</p>
+                    <h2 className="text-xl font-bold text-primary dark:text-darkPrimary">Highest Requested Item</h2>
+                    <p className="text-2xl mt-2 text-secondary dark:text-darkAccent">Product A</p>
                     </div>
                 </div>
                 </div>

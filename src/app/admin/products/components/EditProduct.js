@@ -4,6 +4,8 @@ import MessageModal from "@/app/components/MessageComponent";
 import ProductImage from "@/app/products/components/Image";
 import BackendSwitchingClient from "@/app/components/BackendSwitchingClient";
 import { FaTimes } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const EditProductModal = ({ product, onClose, setProducts }) => {
     const [formData, setFormData] = useState({
@@ -51,18 +53,22 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
 
     if (!formData.name.trim()) {
         setMessage({ type: "error", text: "Product name is required." });
+        toast.error("Product name is required.");
         return;
       }
       if (!formData.price || isNaN(Number(formData.price))) {
         setMessage({ type: "error", text: "A valid price is required." });
+        toast.error("A valid price is required.");
         return;
       }
       if (!formData.category) {
         setMessage({ type: "error", text: "Please select a category." });
+        toast.error("Please select a category.");
         return;
       }
       if (!formData.size) {
         setMessage({ type: "error", text: "Please select a gender category." });
+        toast.error("Please select a gender category.");
         return;
       }
 
@@ -88,11 +94,13 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
       });
       setProducts(response.data);
       setMessage({ type: "success", text: "Product updated successfully." });
+      toast.success("Product updated successfully.");
       setTimeout(() => {
         onClose();
       }, 3000);
     } catch (error) {
       setMessage({ type: "error", text: "Failed to update product. Please try again." });
+      toast.error(error.response?.data?.message || "Failed to update product.");
     } finally {
       setIsLoading(false);
     }
@@ -104,13 +112,7 @@ const EditProductModal = ({ product, onClose, setProducts }) => {
             <h2 className="text-2xl font-semibold text-primary dark:text-darkAccent mb-4">
             Edit Product
             </h2>
-            {message && (
-            <MessageModal
-                messageType={message.type}
-                messageText={message.text}
-                onClose={() => setMessage(null)}
-            />
-            )}
+            <ToastContainer />
             <form className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <input
                 type="text"
